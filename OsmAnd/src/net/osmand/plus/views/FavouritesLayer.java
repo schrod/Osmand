@@ -110,7 +110,7 @@ public class FavouritesLayer extends OsmandMapLayer implements ContextMenuLayer.
 		cache.clear();
 		if (this.settings.SHOW_FAVORITES.get() && favorites.isFavoritesLoaded()) {
 			if (tileBox.getZoom() >= startZoom) {
-				float iconSize = FavoriteImageDrawable.getOrCreate(view.getContext(), 0,
+				float iconSize = FavoriteImageDrawable.getOrCreate(view.getContext(), 0, "",
 						 true).getIntrinsicWidth() * 3 / 2.5f;
 				QuadTree<QuadRect> boundIntersections = initBoundIntersections(tileBox);
 
@@ -161,6 +161,7 @@ public class FavouritesLayer extends OsmandMapLayer implements ContextMenuLayer.
 						drawBigPoint(canvas, o, x, y, pair.second);
 					}
 				}
+
 				this.fullObjectsLatLon = fullObjectsLatLon;
 				this.smallObjectsLatLon = smallObjectsLatLon;
 			}
@@ -178,7 +179,7 @@ public class FavouritesLayer extends OsmandMapLayer implements ContextMenuLayer.
 			fid = FavoriteImageDrawable.getOrCreateSyncedIcon(view.getContext(), o.getColor());
 			history = marker.history;
 		} else {
-			fid = FavoriteImageDrawable.getOrCreate(view.getContext(), o.getColor(), true);
+			fid = FavoriteImageDrawable.getOrCreate(view.getContext(), o.getColor(), o.getIcon(), true);
 		}
 		fid.drawBitmapInCenter(canvas, x, y, history);
 	}

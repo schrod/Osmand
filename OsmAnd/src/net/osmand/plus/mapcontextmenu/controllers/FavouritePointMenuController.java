@@ -117,7 +117,7 @@ public class FavouritePointMenuController extends MenuController {
 	public Drawable getRightIcon() {
 		MapActivity mapActivity = getMapActivity();
 		if (mapActivity != null) {
-			return FavoriteImageDrawable.getOrCreate(mapActivity.getMyApplication(), fav.getColor(), false);
+			return FavoriteImageDrawable.getOrCreate(mapActivity.getMyApplication(), fav.getColor(), fav.getIcon(), false);
 		} else {
 			return null;
 		}

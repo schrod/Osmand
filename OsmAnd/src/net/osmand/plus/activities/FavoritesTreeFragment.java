@@ -934,7 +934,8 @@ public class FavoritesTreeFragment extends OsmandExpandableListFragment implemen
 				});
 			}
 			icon.setImageDrawable(FavoriteImageDrawable.getOrCreate(getActivity(),
-					visible ? model.getColor() : getResources().getColor(disabledIconColor), false));
+					visible ? model.getColor() : getResources().getColor(disabledIconColor),
+					model.getIcon(), false));
 			LatLon lastKnownMapLocation = getMyApplication().getSettings().getLastKnownMapLocation();
 			int dist = (int) (MapUtils.getDistance(model.getLatitude(), model.getLongitude(),
 					lastKnownMapLocation.getLatitude(), lastKnownMapLocation.getLongitude()));

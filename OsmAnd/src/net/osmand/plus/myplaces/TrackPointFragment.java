@@ -1110,8 +1110,7 @@ public class TrackPointFragment extends OsmandExpandableListFragment implements 
 				} else {
 					description.setVisibility(View.GONE);
 				}
-				icon.setImageDrawable(FavoriteImageDrawable.getOrCreate(getActivity(), groupColor, false));
-
+				icon.setImageDrawable(FavoriteImageDrawable.getOrCreate(getActivity(), groupColor, "", false));
 			} else {
 				boolean showAll = gpxItem == null;
 				title.setVisibility(showAll ? View.GONE : View.VISIBLE);

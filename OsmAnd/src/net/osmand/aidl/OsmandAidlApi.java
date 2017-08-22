@@ -974,6 +974,7 @@ public class OsmandAidlApi {
 				color = ColorDialogs.getColorByTag(favorite.getColor());
 			}
 			point.setColor(color);
+			point.setIcon(favorite.getIcon());
 			point.setVisible(favorite.isVisible());
 			favoritesHelper.addFavourite(point);
 			refreshMap();

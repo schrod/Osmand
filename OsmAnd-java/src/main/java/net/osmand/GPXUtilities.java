@@ -119,6 +119,13 @@ public class GPXUtilities {
 			return parseColor(clrValue, defColor);
 		}
 
+		public String getIcon(String defCustomIcon){
+			if (extensions != null && extensions.containsKey("icon")) {
+				return extensions.get("icon");
+			}
+			return defCustomIcon;
+		}
+
 		public void setColor(int color) {
 			getExtensionsToWrite().put("color", Algorithms.colorToString(color));
 		}
@@ -126,6 +133,9 @@ public class GPXUtilities {
 		public void removeColor() {
 			getExtensionsToWrite().remove("color");
 		}
+        public void setIcon(String icon) {
+            getExtensionsToWrite().put("icon", icon);
+        }
 
 		public Map<String, String> getExtensionsToWrite() {
 			if (extensions == null) {

@@ -750,7 +750,8 @@ public class WaypointHelper {
 				}
 
 			} else if (type == FAVORITES || type == WAYPOINTS) {
-				return FavoriteImageDrawable.getOrCreate(uiCtx, point.getColor(), false);
+				//TODO - figure out how to get the favorite inorder to get the icon
+				return FavoriteImageDrawable.getOrCreate(uiCtx, point.getColor(), "", false);
 
 			} else if (type == ALARMS) {
 				//assign alarm list icons manually for now

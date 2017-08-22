@@ -355,7 +355,7 @@ public class QuickSearchListItem {
 				return getIcon(app, R.drawable.ic_action_world_globe);
 			case FAVORITE:
 				FavouritePoint fav = (FavouritePoint) searchResult.object;
-				return FavoriteImageDrawable.getOrCreate(app, fav.getColor(), false);
+				return FavoriteImageDrawable.getOrCreate(app, fav.getColor(), fav.getIcon(), false);
 			case FAVORITE_GROUP:
 				FavoriteGroup group = (FavoriteGroup) searchResult.object;
 				int color = group.color == 0 || group.color == Color.BLACK ? app.getResources().getColor(R.color.color_favorite) : group.color;
@@ -372,7 +372,10 @@ public class QuickSearchListItem {
 				}
 			case WPT:
 				WptPt wpt = (WptPt) searchResult.object;
-				return FavoriteImageDrawable.getOrCreate(app, wpt.getColor(), false);
+				return FavoriteImageDrawable.getOrCreate(app, wpt.getColor(), "", false);
+			case ONLINE_ADDRESS:
+				return app.getIconsCache().getIcon(R.drawable.ic_action_search_dark,
+						app.getSettings().isLightContent() ? R.color.osmand_orange : R.color.osmand_orange_dark);
 			case UNKNOWN_NAME_FILTER:
 				break;
 		}

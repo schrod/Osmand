@@ -788,6 +788,7 @@ public class ImportHelper {
 					fp.setDescription(p.desc);
 				}
 				fp.setColor(p.getColor(0));
+				fp.setIcon(p.getIcon(""));
 				favourites.add(fp);
 			}
 		}

@@ -1,0 +1,10 @@
+--- OsmAnd/src/net/osmand/data/FavouritePoint.java
++++ OsmAnd/src/net/osmand/data/FavouritePoint.java
+@@ -126,4 +131,7 @@ public class FavouritePoint implements Serializable, LocationPoint {
+ 		return "Favourite " + getName(); //$NON-NLS-1$
+ 	}
+ 
++	public String getIcon() {
++		return icon;
++	}
+ }

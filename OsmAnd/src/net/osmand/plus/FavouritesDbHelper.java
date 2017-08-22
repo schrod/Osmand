@@ -446,6 +446,9 @@ public class FavouritesDbHelper {
 			if (p.getColor() != 0) {
 				pt.setColor(p.getColor());
 			}
+			if(!p.getIcon().isEmpty()) {
+				pt.setIcon(p.getIcon());
+			}
 			pt.name = p.getName();
 			pt.desc = p.getDescription();
 			if (p.getCategory().length() > 0)
@@ -627,6 +630,7 @@ public class FavouritesDbHelper {
 				fp.setOriginObjectName(p.comment);
 			}
 			fp.setColor(p.getColor(0));
+			fp.setIcon(p.getIcon(""));
 			fp.setVisible(!p.getExtensionsToRead().containsKey(HIDDEN));
 			points.put(getKey(fp), fp);
 		}
