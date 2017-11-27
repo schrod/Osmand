@@ -373,9 +373,6 @@ public class QuickSearchListItem {
 			case WPT:
 				WptPt wpt = (WptPt) searchResult.object;
 				return FavoriteImageDrawable.getOrCreate(app, wpt.getColor(), "", false);
-			case ONLINE_ADDRESS:
-				return app.getIconsCache().getIcon(R.drawable.ic_action_search_dark,
-						app.getSettings().isLightContent() ? R.color.osmand_orange : R.color.osmand_orange_dark);
 			case UNKNOWN_NAME_FILTER:
 				break;
 		}
