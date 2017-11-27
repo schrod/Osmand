@@ -99,6 +99,7 @@ public class FavouritesLayer extends OsmandMapLayer implements ContextMenuLayer.
 	public void onDraw(Canvas canvas, RotatedTileBox tileBox, DrawSettings settings) {
 		if (contextMenuLayer.getMoveableObject() instanceof FavouritePoint) {
 			FavouritePoint objectInMotion = (FavouritePoint) contextMenuLayer.getMoveableObject();
+
 			PointF pf = contextMenuLayer.getMovableCenterPoint(tileBox);
 			MapMarker mapMarker = mapMarkersHelper.getMapMarker(objectInMotion);
 			drawBigPoint(canvas, objectInMotion, pf.x, pf.y, mapMarker);
@@ -118,6 +119,7 @@ public class FavouritesLayer extends OsmandMapLayer implements ContextMenuLayer.
 				final QuadRect latLonBounds = tileBox.getLatLonBounds();
 				List<LatLon> fullObjectsLatLon = new ArrayList<>();
 				List<LatLon> smallObjectsLatLon = new ArrayList<>();
+
 				for (FavoriteGroup group : favorites.getFavoriteGroups()) {
 					List<Pair<FavouritePoint, MapMarker>> fullObjects = new ArrayList<>();
 					boolean synced = mapMarkersHelper.getMarkersGroup(group) != null;
@@ -153,6 +155,7 @@ public class FavouritesLayer extends OsmandMapLayer implements ContextMenuLayer.
 								fullObjectsLatLon.add(new LatLon(lat, lon));
 							}
 						}
+
 					}
 					for (Pair<FavouritePoint, MapMarker> pair : fullObjects) {
 						FavouritePoint o = pair.first;
@@ -172,6 +175,7 @@ public class FavouritesLayer extends OsmandMapLayer implements ContextMenuLayer.
 
 	}
 
+
 	private void drawBigPoint(Canvas canvas, FavouritePoint o, float x, float y, @Nullable MapMarker marker) {
 		FavoriteImageDrawable fid;
 		boolean history = false;
@@ -180,6 +184,7 @@ public class FavouritesLayer extends OsmandMapLayer implements ContextMenuLayer.
 			history = marker.history;
 		} else {
 			fid = FavoriteImageDrawable.getOrCreate(view.getContext(), o.getColor(), o.getIcon(), true);
+
 		}
 		fid.drawBitmapInCenter(canvas, x, y, history);
 	}

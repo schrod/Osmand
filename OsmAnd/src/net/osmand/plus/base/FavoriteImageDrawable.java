@@ -34,7 +34,6 @@ public class FavoriteImageDrawable extends Drawable {
 	private Bitmap syncedColor;
 	private Bitmap syncedShadow;
 	private Bitmap syncedIcon;
-
 	private Drawable listDrawable;
 	private Paint paintIcon = new Paint();
 	private Paint paintBackground = new Paint();
@@ -80,6 +79,7 @@ public class FavoriteImageDrawable extends Drawable {
 			}
 		}
 	}
+
 
 	private void initSimplePaint(Paint paint, int color) {
 		paint.setAntiAlias(true);
@@ -179,7 +179,11 @@ public class FavoriteImageDrawable extends Drawable {
 		return getOrCreate(a, color, customIconFileName, withShadow, false);
 	}
 
+	public static FavoriteImageDrawable getOrCreateSyncedIcon(Context a, int color, String customIconFileName) {
+		return getOrCreate(a, color, customIconFileName, false, true);
+	}
+
 	public static FavoriteImageDrawable getOrCreateSyncedIcon(Context a, int color) {
-		return getOrCreate(a, color, null, false, true);
+		return getOrCreate(a, color, "", false, true);
 	}
 }
