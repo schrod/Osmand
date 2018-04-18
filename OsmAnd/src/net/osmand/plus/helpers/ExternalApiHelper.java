@@ -103,6 +103,7 @@ public class ExternalApiHelper {
 	public static final String PARAM_LAT = "lat";
 	public static final String PARAM_LON = "lon";
 	public static final String PARAM_COLOR = "color";
+	public static final String PARAM_ICON = "icon";
 	public static final String PARAM_VISIBLE = "visible";
 
 	public static final String PARAM_PATH = "path";
@@ -477,6 +478,7 @@ public class ExternalApiHelper {
 				double lat = Double.parseDouble(uri.getQueryParameter(PARAM_LAT));
 				double lon = Double.parseDouble(uri.getQueryParameter(PARAM_LON));
 				String colorTag = uri.getQueryParameter(PARAM_COLOR);
+				String icon = uri.getQueryParameter(PARAM_ICON);
 				boolean visible = uri.getBooleanQueryParameter(PARAM_VISIBLE, true);
 
 				if (name == null) {
@@ -487,6 +489,9 @@ public class ExternalApiHelper {
 				}
 				if (category == null) {
 					category = "";
+				}
+				if (icon == null) {
+					icon = "";
 				}
 
 				int color = 0;
@@ -500,6 +505,7 @@ public class ExternalApiHelper {
 				FavouritePoint fav = new FavouritePoint(lat, lon, name, category);
 				fav.setDescription(desc);
 				fav.setColor(color);
+				fav.setIcon(icon);
 				fav.setVisible(visible);
 
 				FavouritesDbHelper helper = app.getFavorites();
