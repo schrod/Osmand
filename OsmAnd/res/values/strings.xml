@@ -781,6 +781,10 @@
     <string name="quick_action_auto_zoom_desc">Tapping this action button turns on/off auto zoom map according to your speed.</string>
     <string name="quick_action_auto_zoom_on">Enable auto zoom map</string>
     <string name="quick_action_auto_zoom_off">Disable auto zoom map</string>
+    <string name="quick_action_auto_center">Auto center map on/off</string>
+    <string name="quick_action_auto_center_desc">Tapping this action button will turn on/off auto center map.</string>
+    <string name="quick_action_auto_center_on">Enable auto center map</string>
+    <string name="quick_action_auto_center_off">Disable auto center map</string>
     <string name="quick_action_add_destination">Add destination</string>
     <string name="quick_action_replace_destination">Replace destination</string>
     <string name="quick_action_add_first_intermediate">Add first intermediate</string>
