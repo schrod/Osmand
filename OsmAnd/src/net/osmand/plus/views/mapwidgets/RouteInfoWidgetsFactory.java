@@ -194,47 +194,78 @@ public class RouteInfoWidgetsFactory {
 
 		public static final int TIME_CONTROL_WIDGET_STATE_ARRIVAL_TIME = R.id.time_control_widget_state_arrival_time;
 		public static final int TIME_CONTROL_WIDGET_STATE_TIME_TO_GO = R.id.time_control_widget_state_time_to_go;
+		public static final int TIME_CONTROL_WIDGET_STATE_ARRIVAL_TO_GO = R.id.time_control_widget_state_arrival_to_go;
+		public static final int TIME_CONTROL_WIDGET_STATE_TO_GO_ARRIVAL = R.id.time_control_widget_state_to_go_arrival;
 
-		private final OsmandPreference<Boolean> showArrival;
+		private final OsmandPreference<OsmandSettings.ShowArrivalTimeMode> showArrival;
 		private final boolean intermediate;
 
 		public TimeControlWidgetState(OsmandApplication ctx, boolean intermediate) {
 			super(ctx);
 			this.intermediate = intermediate;
 			if (intermediate) {
-				showArrival = ctx.getSettings().SHOW_INTERMEDIATE_ARRIVAL_TIME_OTHERWISE_EXPECTED_TIME;
+				showArrival = ctx.getSettings().SHOW_INTERMEDIATE_ARRIVAL_TIME_MODE;
 			} else {
-				showArrival = ctx.getSettings().SHOW_ARRIVAL_TIME_OTHERWISE_EXPECTED_TIME;
+				showArrival = ctx.getSettings().SHOW_ARRIVAL_TIME_MODE;
 			}
 		}
 
 		@Override
 		public int getMenuTitleId() {
 			if (intermediate) {
-				return showArrival.get() ? R.string.access_intermediate_arrival_time : R.string.map_widget_intermediate_time;
+				if (showArrival.get() == OsmandSettings.ShowArrivalTimeMode.ARRIVAL_TIME) {
+					return R.string.access_intermediate_arrival_time;
+				} else if (showArrival.get() == OsmandSettings.ShowArrivalTimeMode.EXPECTED_TIME) {
+					return R.string.map_widget_intermediate_time;
+				} else if (showArrival.get() == OsmandSettings.ShowArrivalTimeMode.ARRIVAL_EXPECTED_TIME) {
+					return R.string.access_intermediate_arrival_expected_time;
+				} else {
+					return R.string.access_intermediate_expected_arrival_time;
+				}
+			} else {
+				if (showArrival.get() == OsmandSettings.ShowArrivalTimeMode.ARRIVAL_TIME) {
+					return R.string.access_arrival_time;
+				} else if (showArrival.get() == OsmandSettings.ShowArrivalTimeMode.EXPECTED_TIME) {
+					return R.string.map_widget_time;
+				} else if (showArrival.get() == OsmandSettings.ShowArrivalTimeMode.ARRIVAL_EXPECTED_TIME) {
+					return R.string.access_arrival_expected_time;
+				} else {
+					return R.string.access_expected_arrival_time;
+				}
 			}
-			return showArrival.get() ? R.string.access_arrival_time : R.string.map_widget_time;
 		}
 
 		@Override
 		public int getMenuIconId() {
-			if (intermediate) {
-				return R.drawable.ic_action_intermediate_destination_time;
-			}
-			return showArrival.get() ? R.drawable.ic_action_time : R.drawable.ic_action_time_to_distance;
+			return ((showArrival.get() == OsmandSettings.ShowArrivalTimeMode.ARRIVAL_TIME)
+					|| (showArrival.get() == OsmandSettings.ShowArrivalTimeMode.ARRIVAL_EXPECTED_TIME))? R.drawable.ic_action_time : R.drawable.ic_action_time_to_distance;
 		}
 
 		@Override
 		public int getMenuItemId() {
-			return showArrival.get() ? TIME_CONTROL_WIDGET_STATE_ARRIVAL_TIME : TIME_CONTROL_WIDGET_STATE_TIME_TO_GO;
+			if (showArrival.get() == OsmandSettings.ShowArrivalTimeMode.ARRIVAL_TIME) {
+				return TIME_CONTROL_WIDGET_STATE_ARRIVAL_TIME;
+			} else if (showArrival.get() == OsmandSettings.ShowArrivalTimeMode.EXPECTED_TIME) {
+				return TIME_CONTROL_WIDGET_STATE_TIME_TO_GO;
+			} else if (showArrival.get() == OsmandSettings.ShowArrivalTimeMode.ARRIVAL_EXPECTED_TIME) {
+				return TIME_CONTROL_WIDGET_STATE_ARRIVAL_TO_GO;
+			}else {
+				return TIME_CONTROL_WIDGET_STATE_TO_GO_ARRIVAL;
+			}
 		}
 
 		@Override
 		public int[] getMenuTitleIds() {
 			if (intermediate) {
-				return new int[]{R.string.access_intermediate_arrival_time, R.string.map_widget_intermediate_time};
+				return new int[] {
+						R.string.access_intermediate_arrival_time, R.string.map_widget_intermediate_time,
+						R.string.access_intermediate_arrival_expected_time, R.string.access_intermediate_expected_arrival_time
+				};
 			}
-			return new int[]{R.string.access_arrival_time, R.string.map_widget_time};
+			return new int[] {
+					R.string.access_arrival_time, R.string.map_widget_time,
+					R.string.access_arrival_expected_time, R.string.access_expected_arrival_time
+			};
 		}
 
 		@Override
@@ -247,48 +278,67 @@ public class RouteInfoWidgetsFactory {
 
 		@Override
 		public int[] getMenuItemIds() {
-			return new int[]{TIME_CONTROL_WIDGET_STATE_ARRIVAL_TIME, TIME_CONTROL_WIDGET_STATE_TIME_TO_GO};
+			return new int[]{TIME_CONTROL_WIDGET_STATE_ARRIVAL_TIME, TIME_CONTROL_WIDGET_STATE_TIME_TO_GO,
+					TIME_CONTROL_WIDGET_STATE_ARRIVAL_TO_GO, TIME_CONTROL_WIDGET_STATE_TO_GO_ARRIVAL};
 		}
 
 		@Override
 		public void changeState(int stateId) {
-			showArrival.set(stateId == TIME_CONTROL_WIDGET_STATE_ARRIVAL_TIME);
+			if (stateId == TIME_CONTROL_WIDGET_STATE_ARRIVAL_TIME) {
+				showArrival.set(OsmandSettings.ShowArrivalTimeMode.ARRIVAL_TIME);
+			} else if (stateId == TIME_CONTROL_WIDGET_STATE_TIME_TO_GO) {
+				showArrival.set(OsmandSettings.ShowArrivalTimeMode.EXPECTED_TIME);
+			} else if (stateId == TIME_CONTROL_WIDGET_STATE_ARRIVAL_TO_GO) {
+				showArrival.set(OsmandSettings.ShowArrivalTimeMode.ARRIVAL_EXPECTED_TIME);
+			} else {
+				showArrival.set(OsmandSettings.ShowArrivalTimeMode.EXPECTED_ARRIVAL_TIME);
+			}
 		}
 	}
 
 	public TextInfoWidget createTimeControl(final MapActivity map, final boolean intermediate){
 		final RoutingHelper routingHelper = map.getRoutingHelper();
 		final OsmandApplication ctx = map.getMyApplication();
-		final OsmandPreference<Boolean> showArrival = intermediate
-				? ctx.getSettings().SHOW_INTERMEDIATE_ARRIVAL_TIME_OTHERWISE_EXPECTED_TIME
-				: ctx.getSettings().SHOW_ARRIVAL_TIME_OTHERWISE_EXPECTED_TIME;
-
+		final OsmandPreference<OsmandSettings.ShowArrivalTimeMode> showArrival = intermediate?ctx.getSettings().SHOW_INTERMEDIATE_ARRIVAL_TIME_MODE
+																                             :ctx.getSettings().SHOW_ARRIVAL_TIME_MODE;
 		final TextInfoWidget leftTimeControl = new TextInfoWidget(map) {
 			private long cachedLeftTime = 0;
-			
+			private long cachedArrivalTime = 0;
+			OsmandSettings.ShowArrivalTimeMode lastMode;
+
 			@Override
 			public boolean updateInfo(DrawSettings drawSettings) {
+
 				setTimeControlIcons(this, showArrival.get(), intermediate);
+				if (lastMode != showArrival.get())
+				{
+					//Mode has changed, reset cachedLeftTime to force update
+					cachedLeftTime = 0;
+					cachedArrivalTime = 0;
+					lastMode = showArrival.get();
+				}
+
 				int time = 0;
 				if (routingHelper != null && routingHelper.isRouteCalculated()) {
 					//boolean followingMode = routingHelper.isFollowingMode();
 					time = intermediate ? routingHelper.getLeftTimeNextIntermediate() : routingHelper.getLeftTime();
 
 					if (time != 0) {
-						if (/*followingMode && */showArrival.get()) {
+
+						if (showArrival.get() == OsmandSettings.ShowArrivalTimeMode.ARRIVAL_TIME) {
 							long toFindTime = time * 1000 + System.currentTimeMillis();
-							if (Math.abs(toFindTime - cachedLeftTime) > 30000) {
-								cachedLeftTime = toFindTime;
+							if (Math.abs(toFindTime - cachedArrivalTime) > 30000) {
+								cachedArrivalTime = toFindTime;
 								setContentTitle(map.getString(R.string.access_arrival_time));
 								if (DateFormat.is24HourFormat(ctx)) {
 									setText(DateFormat.format("k:mm", toFindTime).toString(), null); //$NON-NLS-1$
 								} else {
-									setText(DateFormat.format("h:mm", toFindTime).toString(), 
+									setText(DateFormat.format("h:mm", toFindTime).toString(),
 											DateFormat.format("aa", toFindTime).toString()); //$NON-NLS-1$
 								}
 								return true;
 							}
-						} else {
+						} else if (showArrival.get() == OsmandSettings.ShowArrivalTimeMode.EXPECTED_TIME) {
 							if (Math.abs(time - cachedLeftTime) > 30) {
 								cachedLeftTime = time;
 								int hours = time / (60 * 60);
@@ -297,40 +347,68 @@ public class RouteInfoWidgetsFactory {
 								setText(String.format("%d:%02d", hours, minutes), null); //$NON-NLS-1$
 								return true;
 							}
+						} else {
+							//Both
+							long toFindTime = time * 1000 + System.currentTimeMillis();
+							if (Math.abs(time - cachedLeftTime) > 30 || Math.abs(toFindTime - cachedArrivalTime) > 30000) {
+								cachedLeftTime = time;
+								cachedArrivalTime = toFindTime;
+								setContentTitle(map.getString(R.string.access_arrival_time));
+								String arrivalTime;
+								if (DateFormat.is24HourFormat(ctx)) {
+									arrivalTime = DateFormat.format("k:mm", toFindTime).toString();
+								} else {
+									//Not showing am/pm to save space
+									arrivalTime = DateFormat.format("h:mm", toFindTime).toString();
+								}
+								int hours = time / (60 * 60);
+								int minutes = (time / 60) % 60;
+								String expectedTime = String.format("%d:%02d", hours, minutes);
+								if (showArrival.get() == OsmandSettings.ShowArrivalTimeMode.ARRIVAL_EXPECTED_TIME) {
+									setText(arrivalTime, expectedTime);
+								} else {
+									setText(expectedTime, arrivalTime);
+								}
+								return true;
+							}
 						}
 					}
 				}
-				if (time == 0 && cachedLeftTime != 0) {
+				if (time == 0 && (cachedLeftTime != 0 || cachedArrivalTime != 0)) {
 					cachedLeftTime = 0;
+					cachedArrivalTime = 0;
 					setText(null, null);
 					return true;
 				}
 				return false;
-			};
+			}
 		};
 		leftTimeControl.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				showArrival.set(!showArrival.get());
-				setTimeControlIcons(leftTimeControl, showArrival.get(), intermediate);
+				showArrival.set(showArrival.get().next());
 				map.getMapView().refreshMap();
 			}
 			
 		});
 		leftTimeControl.setText(null, null);
 		setTimeControlIcons(leftTimeControl, showArrival.get(), intermediate);
+
 		return leftTimeControl;
 	}
 
-	private void setTimeControlIcons(TextInfoWidget timeControl, boolean showArrival, boolean intermediate) {
+	private void setTimeControlIcons(TextInfoWidget timeControl, OsmandSettings.ShowArrivalTimeMode showArrival, boolean intermediate) {
+		boolean showArrivalIcon = (showArrival == OsmandSettings.ShowArrivalTimeMode.ARRIVAL_TIME ||
+				showArrival == OsmandSettings.ShowArrivalTimeMode.ARRIVAL_EXPECTED_TIME);
 		int iconLight = intermediate
 				? R.drawable.widget_intermediate_time_day
-				: showArrival ? R.drawable.widget_time_day : R.drawable.widget_time_to_distance_day;
+				: showArrivalIcon ? R.drawable.widget_time_day : R.drawable.widget_time_to_distance_day;
 		int iconDark = intermediate
 				? R.drawable.widget_intermediate_time_night
-				: showArrival ? R.drawable.widget_time_night : R.drawable.widget_time_to_distance_night;
+				: showArrivalIcon ? R.drawable.widget_time_night : R.drawable.widget_time_to_distance_night;
 		timeControl.setIcons(iconLight, iconDark);
+
 	}
 	
 	

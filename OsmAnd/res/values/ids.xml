@@ -11,5 +11,7 @@
     <!-- Compass control widget ids-->
     <item name="compass_ruler_control_widget_state_show" type="id"/>
     <item name="compass_ruler_control_widget_state_hide" type="id"/>
+    <item name="time_control_widget_state_arrival_to_go" type="id"/>
+    <item name="time_control_widget_state_to_go_arrival" type="id"/>
 
 </resources>

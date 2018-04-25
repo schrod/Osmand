@@ -2843,12 +2843,32 @@ public class OsmandSettings {
 
 	public final ListStringPreference TRANSPORT_DEFAULT_SETTINGS =
 			(ListStringPreference) new ListStringPreference("transport_default_settings", "transportStops", ",").makeProfile();
-	
-	public final OsmandPreference<Boolean> SHOW_ARRIVAL_TIME_OTHERWISE_EXPECTED_TIME =
-			new BooleanPreference("show_arrival_time", true).makeGlobal();
 
-	public final OsmandPreference<Boolean> SHOW_INTERMEDIATE_ARRIVAL_TIME_OTHERWISE_EXPECTED_TIME =
-			new BooleanPreference("show_intermediate_arrival_time", true).makeGlobal();
+	public enum ShowArrivalTimeMode {
+	    ARRIVAL_TIME,
+	    EXPECTED_TIME,
+		ARRIVAL_EXPECTED_TIME,
+		EXPECTED_ARRIVAL_TIME {
+	        @Override
+            public ShowArrivalTimeMode next() {
+	            return values()[0];
+            }
+        };
+
+	    public ShowArrivalTimeMode next() {
+	        return values()[(ordinal()+1)];
+        }
+    }
+
+    public final OsmandPreference<ShowArrivalTimeMode> SHOW_ARRIVAL_TIME_MODE =
+            new EnumIntPreference<>("show_arrival_time",
+                    ShowArrivalTimeMode.ARRIVAL_TIME, ShowArrivalTimeMode.values())
+                    .makeGlobal();
+
+    public final OsmandPreference<ShowArrivalTimeMode> SHOW_INTERMEDIATE_ARRIVAL_TIME_MODE =
+            new EnumIntPreference<>("show_intermediate_arrival_time",
+                    ShowArrivalTimeMode.ARRIVAL_TIME, ShowArrivalTimeMode.values())
+                    .makeGlobal();
 
 	public final OsmandPreference<Boolean> SHOW_RELATIVE_BEARING_OTHERWISE_REGULAR_BEARING =
 			new BooleanPreference("show_relative_bearing", true).makeGlobal();
