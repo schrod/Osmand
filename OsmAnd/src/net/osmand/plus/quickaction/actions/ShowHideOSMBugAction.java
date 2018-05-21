@@ -9,13 +9,12 @@ import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.OsmandPlugin;
 import net.osmand.plus.R;
 import net.osmand.plus.activities.MapActivity;
-import net.osmand.plus.dialogs.ConfigureMapMenu;
 import net.osmand.plus.osmedit.OsmEditingPlugin;
 import net.osmand.plus.quickaction.QuickAction;
 
 public class ShowHideOSMBugAction extends QuickAction {
 
-	public static final int TYPE = 24;
+	public static final QuickActionType TYPE = QuickActionType.SHOW_HIDE_OSM_BUG_ACTION;
 
 	public ShowHideOSMBugAction() {
 		super(TYPE);

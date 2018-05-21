@@ -64,7 +64,7 @@ import static net.osmand.plus.osmedit.AdvancedEditPoiFragment.addPoiToStringSet;
 import static net.osmand.plus.osmedit.EditPoiData.POI_TYPE_TAG;
 
 public class AddPOIAction extends QuickAction {
-	public static final int TYPE = 13;
+	public static final QuickActionType TYPE = QuickActionType.ADD_POI_ACTION;
 	public static final String KEY_TAG = "key_tag";
 	public static final String KEY_DIALOG = "dialog";
 

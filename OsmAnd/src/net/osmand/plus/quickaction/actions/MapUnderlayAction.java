@@ -27,7 +27,8 @@ import java.util.List;
 import java.util.Map;
 
 public class MapUnderlayAction extends SwitchableAction<Pair<String, String>> {
-	public static final int TYPE = 16;
+
+	public static final QuickActionType TYPE = QuickActionType.MAP_UNDERLAY_ACTION;
 
 	private final static String KEY_UNDERLAYS = "underlays";
 	private final static String KEY_NO_UNDERLAY = "no_underlay";

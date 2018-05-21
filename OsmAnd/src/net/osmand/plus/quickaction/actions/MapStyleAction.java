@@ -29,7 +29,7 @@ import net.osmand.util.Algorithms;
 
 public class MapStyleAction extends SwitchableAction<String> {
 
-	public static final int TYPE = 14;
+	public static final QuickActionType TYPE = QuickActionType.MAP_STYLE_ACTION;
 
 	private final static String KEY_STYLES = "styles";
 

@@ -3149,7 +3149,8 @@ public class OsmandSettings {
 	public enum AutoZoomMap {
 		FARTHEST(R.string.auto_zoom_farthest, 1f, 15.5f),
 		FAR(R.string.auto_zoom_far, 1.4f, 17f),
-		CLOSE(R.string.auto_zoom_close, 2f, 19f);
+		CLOSE(R.string.auto_zoom_close, 2f, 19f),
+		DAVE(R.string.auto_zoom_dave, 0.25f, 25f);
 		public final float coefficient;
 		public final int name;
 		public final float maxZoom;

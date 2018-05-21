@@ -13,7 +13,7 @@ import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.quickaction.QuickAction;
 
 public class DayNightModeAction extends QuickAction {
-	public static final int TYPE = 27;
+	public static final QuickActionType TYPE = QuickActionType.DAY_NIGHT_MODE_ACTION;
 
 	public DayNightModeAction() {super(TYPE);}
 

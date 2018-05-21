@@ -13,7 +13,7 @@ import net.osmand.plus.quickaction.QuickAction;
 
 public class MarkerAction extends QuickAction {
 
-	public static final int TYPE = 2;
+	public static final QuickActionType TYPE = QuickActionType.MARKER_ACTION;
 
 	public MarkerAction() {
 		super(TYPE);

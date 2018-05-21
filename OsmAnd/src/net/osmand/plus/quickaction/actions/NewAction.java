@@ -8,7 +8,7 @@ import net.osmand.plus.quickaction.QuickAction;
 
 public class NewAction extends QuickAction {
 
-	public static final int TYPE = 1;
+	public static final QuickActionType TYPE = QuickActionType.NEW_ACTION;
 
 	public NewAction() {
 		super(TYPE);

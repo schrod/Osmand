@@ -15,7 +15,8 @@ import net.osmand.plus.quickaction.QuickAction;
 
 public class AddOSMBugAction extends QuickAction {
 
-	public static final int TYPE = 12;
+
+	public static final QuickActionType TYPE = QuickActionType.ADD_OSM_BUG_ACTION;
 
 	private static final String KEY_MESSAGE = "message";
 	private static final String KEY_SHO_DIALOG = "dialog";

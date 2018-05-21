@@ -21,7 +21,7 @@ import net.osmand.plus.quickaction.QuickAction;
 
 public class ShowHideGpxTracksAction extends QuickAction {
 
-	public static final int TYPE = 28;
+	public static final int TYPE = QuickActionType.SHOW_HIDE_GPX_TRACKS_ACTION;
 
 	public ShowHideGpxTracksAction() {
 		super(TYPE);

@@ -12,7 +12,7 @@ import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.quickaction.QuickAction;
 
 public class TakeAudioNoteAction extends QuickAction {
-	public static final int TYPE = 8;
+	public static final QuickActionType TYPE = QuickActionType.TAKE_AUDIO_NOTE_ACTION;
 
 	public TakeAudioNoteAction() {
 		super(TYPE);

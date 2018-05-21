@@ -12,7 +12,7 @@ import net.osmand.plus.quickaction.QuickAction;
 
 public class NavReplaceDestinationAction extends QuickAction {
 
-	public static final int TYPE = 21;
+	public static final QuickActionType TYPE = QuickActionType.NAV_REPLACE_DESTINATION_ACTION;
 
 	public NavReplaceDestinationAction() {
 		super(TYPE);

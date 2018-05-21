@@ -11,7 +11,7 @@ import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.quickaction.QuickAction;
 
 public class NavVoiceAction extends QuickAction {
-	public static final int TYPE = 11;
+	public static final QuickActionType TYPE = QuickActionType.NAV_VOICE_ACTION;
 
 	public NavVoiceAction() {
 		super(TYPE);

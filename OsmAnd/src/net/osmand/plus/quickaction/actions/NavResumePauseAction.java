@@ -14,7 +14,7 @@ import net.osmand.plus.routing.RoutingHelper;
 
 public class NavResumePauseAction extends QuickAction {
 
-	public static final int TYPE = 26;
+	public static final QuickActionType TYPE = QuickActionType.NAV_RESUME_PAUSE_ACTION;
 
 	public NavResumePauseAction() {
 		super(TYPE);

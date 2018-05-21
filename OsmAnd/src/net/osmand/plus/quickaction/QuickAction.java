@@ -16,12 +16,62 @@ import java.util.List;
 
 public class QuickAction {
 
+    public enum QuickActionType {
+        QUICK_ACTION_HEADER                 (0),
+        NEW_ACTION                          (1),
+        MARKER_ACTION                       (2),
+        FAVORITE_ACTION                     (3),
+        SHOW_HIDE_FAVORITES_ACTION          (4),
+        SHOW_HIDE_POI_ACTION                (5),
+        GPX_ACTION                          (6),
+        PARKING_ACTION                      (7),
+        TAKE_AUDIO_NOTE_ACTION              (8),
+        TAKE_VIDEO_NOTE_ACTION              (9),
+        TAKE_PHOTO_NOTE_ACTION              (10),
+        NAV_VOICE_ACTION                    (11),
+        ADD_OSM_BUG_ACTION                  (12),
+        ADD_POI_ACTION                      (13),
+        MAP_STYLE_ACTION                    (14),
+        MAP_OVERLAY_ACTION                  (15),
+        MAP_UNDERLAY_ACTION                 (16),
+        MAP_SOURCE_ACTION                   (17),
+        NAV_ADD_DESTINATION_ACTION          (20),
+        NAV_REPLACE_DESTINATION_ACTION      (21),
+        NAV_ADD_FIRST_INTERMEDIATE_ACTION   (22),
+        NAV_AUTO_ZOOM_MAP_ACTION            (23),
+        SHOW_HIDE_OSM_BUG_ACTION            (24),
+        NAV_START_STOP_ACTION               (25),
+        NAV_RESUME_PAUSE_ACTION             (26),
+        NAV_AUTO_CENTER_MAP_ACTION          (28),
+        DAY_NIGHT_MODE_ACTION               (29),
+        SHOW_HIDE_GPX_TRACKS_ACTION         (30);
+
+        private final int value;
+
+        QuickActionType(int value) {
+            this.value = value;
+        }
+
+        public int toInt() { return value; }
+
+        private static final QuickActionType[] typeValues = QuickActionType.values();
+
+        public static QuickActionType fromInt(int intValue) {
+            for (QuickActionType type : typeValues) {
+                if (type.toInt() == intValue) {
+                    return type;
+                }
+            }
+            return null;
+        }
+    }
+
     public interface QuickActionSelectionListener {
 
         void onActionSelected(QuickAction action);
     }
 
-    protected int type;
+    protected QuickActionType type;
     protected long id;
 
     private @StringRes int nameRes;
@@ -33,15 +83,16 @@ public class QuickAction {
 
     protected QuickAction() {
         this.id = System.currentTimeMillis();
+        this.type = QuickActionType.QUICK_ACTION_HEADER;
     }
 
-    protected QuickAction(int type, int nameRes) {
+    protected QuickAction(QuickActionType type, int nameRes) {
         this.id = System.currentTimeMillis();
         this.nameRes = nameRes;
         this.type = type;
     }
 
-    protected QuickAction(int type) {
+    protected QuickAction(QuickActionType type) {
         this.id = System.currentTimeMillis();
         this.type = type;
         this.nameRes = QuickActionFactory.getActionName(type);
@@ -150,7 +201,7 @@ public class QuickAction {
 
     @Override
     public int hashCode() {
-        int result = type;
+        int result = type.toInt();
         result = 31 * result + (int) (id ^ (id >>> 32));
         result = 31 * result + nameRes;
         result = 31 * result + iconRes;

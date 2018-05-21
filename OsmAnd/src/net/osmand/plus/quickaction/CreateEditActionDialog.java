@@ -60,6 +60,10 @@ public class CreateEditActionDialog extends DialogFragment {
         return dialog;
     }
 
+    public static CreateEditActionDialog newInstance(QuickAction.QuickActionType type) {
+        return newInstance(type.toInt());
+    }
+
     private QuickActionRegistry quickActionRegistry;
     private QuickAction action;
 
@@ -124,7 +128,7 @@ public class CreateEditActionDialog extends DialogFragment {
                 : savedInstanceState.getBoolean(KEY_ACTION_IS_NEW);
 
         action = QuickActionFactory.produceAction(isNew
-                ? QuickActionFactory.newActionByType(type)
+                ? QuickActionFactory.newActionByType(QuickAction.QuickActionType.fromInt(type))
                 : quickActionRegistry.getQuickAction(actionId));
 
         setupToolbar(view);
@@ -139,7 +143,7 @@ public class CreateEditActionDialog extends DialogFragment {
         super.onSaveInstanceState(outState);
 
         outState.putLong(KEY_ACTION_ID, action.getId());
-        outState.putInt(KEY_ACTION_TYPE, action.type);
+        outState.putInt(KEY_ACTION_TYPE, action.type.toInt());
         outState.putBoolean(KEY_ACTION_IS_NEW, isNew);
     }
 

@@ -1923,6 +1923,7 @@
     <string name="auto_zoom_close">To close-up</string>
     <string name="auto_zoom_far">To mid-range</string>
     <string name="auto_zoom_farthest">To long-range</string>
+    <string name="auto_zoom_dave">To dave-range</string>
     <string name="map_magnifier">Map magnifier</string>
     <string name="base_world_map">World basemap</string>
     <string name="about_version">Version:</string>

@@ -59,7 +59,7 @@ public class QuickActionFactory {
 
 	public static List<QuickAction> produceTypeActionsListWithHeaders(List<QuickAction> active) {
 		ArrayList<QuickAction> quickActions = new ArrayList<>();
-		quickActions.add(new QuickAction(0, R.string.quick_action_add_create_items));
+		quickActions.add(new QuickAction(QuickAction.QuickActionType.QUICK_ACTION_HEADER, R.string.quick_action_add_create_items));
 		quickActions.add(new FavoriteAction());
 		quickActions.add(new GPXAction());
 		QuickAction marker = new MarkerAction();
@@ -98,7 +98,7 @@ public class QuickActionFactory {
 			}
 		}
 
-		quickActions.add(new QuickAction(0, R.string.quick_action_add_configure_map));
+		quickActions.add(new QuickAction(QuickAction.QuickActionType.QUICK_ACTION_HEADER, R.string.quick_action_add_configure_map));
 
 		QuickAction favorites = new ShowHideFavoritesAction();
 		if (!favorites.hasInstanceInList(active)) {
@@ -162,96 +162,96 @@ public class QuickActionFactory {
 		}
 
 		if (navigationQuickActions.size() > 0) {
-			quickActions.add(new QuickAction(0, R.string.quick_action_add_navigation));
+			quickActions.add(new QuickAction(QuickAction.QuickActionType.QUICK_ACTION_HEADER, R.string.quick_action_add_navigation));
 			quickActions.addAll(navigationQuickActions);
 		}
 
 		return quickActions;
 	}
 
-	public static QuickAction newActionByType(int type) {
+	public static QuickAction newActionByType(QuickAction.QuickActionType type) {
 
 		switch (type) {
 
-			case NewAction.TYPE:
+			case NEW_ACTION:
 				return new NewAction();
 
-			case MarkerAction.TYPE:
+			case MARKER_ACTION:
 				return new MarkerAction();
 
-			case FavoriteAction.TYPE:
+			case FAVORITE_ACTION:
 				return new FavoriteAction();
 
-			case ShowHideFavoritesAction.TYPE:
+			case SHOW_HIDE_FAVORITES_ACTION:
 				return new ShowHideFavoritesAction();
 
-			case ShowHidePoiAction.TYPE:
+			case SHOW_HIDE_POI_ACTION:
 				return new ShowHidePoiAction();
 
-			case GPXAction.TYPE:
+			case GPX_ACTION:
 				return new GPXAction();
 
-			case ParkingAction.TYPE:
+			case PARKING_ACTION:
 				return new ParkingAction();
 
-			case TakeAudioNoteAction.TYPE:
+			case TAKE_AUDIO_NOTE_ACTION:
 				return new TakeAudioNoteAction();
 
-			case TakePhotoNoteAction.TYPE:
+			case TAKE_PHOTO_NOTE_ACTION:
 				return new TakePhotoNoteAction();
 
-			case TakeVideoNoteAction.TYPE:
+			case TAKE_VIDEO_NOTE_ACTION:
 				return new TakeVideoNoteAction();
 
-			case NavVoiceAction.TYPE:
+			case NAV_VOICE_ACTION:
 				return new NavVoiceAction();
 
-			case ShowHideOSMBugAction.TYPE:
+			case SHOW_HIDE_OSM_BUG_ACTION:
 				return new ShowHideOSMBugAction();
 
-			case AddOSMBugAction.TYPE:
+			case ADD_OSM_BUG_ACTION:
 				return new AddOSMBugAction();
 
-			case AddPOIAction.TYPE:
+			case ADD_POI_ACTION:
 				return new AddPOIAction();
 
-			case MapStyleAction.TYPE:
+			case MAP_STYLE_ACTION:
 				return new MapStyleAction();
 
-			case MapSourceAction.TYPE:
+			case MAP_SOURCE_ACTION:
 				return new MapSourceAction();
 
-			case MapOverlayAction.TYPE:
+			case MAP_OVERLAY_ACTION:
 				return new MapOverlayAction();
 
-			case MapUnderlayAction.TYPE:
+			case MAP_UNDERLAY_ACTION:
 				return new MapUnderlayAction();
 
-			case NavAddDestinationAction.TYPE:
+			case NAV_ADD_DESTINATION_ACTION:
 				return new NavAddDestinationAction();
 
-			case NavAddFirstIntermediateAction.TYPE:
+			case NAV_ADD_FIRST_INTERMEDIATE_ACTION:
 				return new NavAddFirstIntermediateAction();
 
-			case NavReplaceDestinationAction.TYPE:
+			case NAV_REPLACE_DESTINATION_ACTION:
 				return new NavReplaceDestinationAction();
 
-			case NavAutoZoomMapAction.TYPE:
+			case NAV_AUTO_ZOOM_MAP_ACTION:
 				return new NavAutoZoomMapAction();
 
-			case NavAutoCenterMapAction.TYPE:
+			case NAV_AUTO_CENTER_MAP_ACTION:
 				return new NavAutoCenterMapAction();
 
-			case NavStartStopAction.TYPE:
+			case NAV_START_STOP_ACTION:
 				return new NavStartStopAction();
 
-			case NavResumePauseAction.TYPE:
+			case NAV_RESUME_PAUSE_ACTION:
 				return new NavResumePauseAction();
 
-			case DayNightModeAction.TYPE:
+			case DAY_NIGHT_MODE_ACTION:
 				return new DayNightModeAction();
 
-			case ShowHideGpxTracksAction.TYPE:
+			case SHOW_HIDE_GPX_TRACKS_ACTION:
 				return new ShowHideGpxTracksAction();
 
 			default:
@@ -263,85 +263,85 @@ public class QuickActionFactory {
 
 		switch (quickAction.type) {
 
-			case NewAction.TYPE:
+			case NEW_ACTION:
 				return new NewAction(quickAction);
 
-			case MarkerAction.TYPE:
+			case MARKER_ACTION:
 				return new MarkerAction(quickAction);
 
-			case FavoriteAction.TYPE:
+			case FAVORITE_ACTION:
 				return new FavoriteAction(quickAction);
 
-			case ShowHideFavoritesAction.TYPE:
+			case SHOW_HIDE_FAVORITES_ACTION:
 				return new ShowHideFavoritesAction(quickAction);
 
-			case ShowHidePoiAction.TYPE:
+			case SHOW_HIDE_POI_ACTION:
 				return new ShowHidePoiAction(quickAction);
 
-			case GPXAction.TYPE:
+			case GPX_ACTION:
 				return new GPXAction(quickAction);
 
-			case ParkingAction.TYPE:
+			case PARKING_ACTION:
 				return new ParkingAction(quickAction);
 
-			case TakeAudioNoteAction.TYPE:
+			case TAKE_AUDIO_NOTE_ACTION:
 				return new TakeAudioNoteAction(quickAction);
 
-			case TakePhotoNoteAction.TYPE:
+			case TAKE_PHOTO_NOTE_ACTION:
 				return new TakePhotoNoteAction(quickAction);
 
-			case TakeVideoNoteAction.TYPE:
+			case TAKE_VIDEO_NOTE_ACTION:
 				return new TakeVideoNoteAction(quickAction);
 
-			case NavVoiceAction.TYPE:
+			case NAV_VOICE_ACTION:
 				return new NavVoiceAction(quickAction);
 
-			case ShowHideOSMBugAction.TYPE:
+			case SHOW_HIDE_OSM_BUG_ACTION:
 				return new ShowHideOSMBugAction(quickAction);
 
-			case AddOSMBugAction.TYPE:
+			case ADD_OSM_BUG_ACTION:
 				return new AddOSMBugAction(quickAction);
 
-			case AddPOIAction.TYPE:
+			case ADD_POI_ACTION:
 				return new AddPOIAction(quickAction);
 
-			case MapStyleAction.TYPE:
+			case MAP_STYLE_ACTION:
 				return new MapStyleAction(quickAction);
 
-			case MapSourceAction.TYPE:
+			case MAP_SOURCE_ACTION:
 				return new MapSourceAction(quickAction);
 
-			case MapOverlayAction.TYPE:
+			case MAP_OVERLAY_ACTION:
 				return new MapOverlayAction(quickAction);
 
-			case MapUnderlayAction.TYPE:
+			case MAP_UNDERLAY_ACTION:
 				return new MapUnderlayAction(quickAction);
 
-			case NavAddDestinationAction.TYPE:
+			case NAV_ADD_DESTINATION_ACTION:
 				return new NavAddDestinationAction(quickAction);
 
-			case NavAddFirstIntermediateAction.TYPE:
+			case NAV_ADD_FIRST_INTERMEDIATE_ACTION:
 				return new NavAddFirstIntermediateAction(quickAction);
 
-			case NavReplaceDestinationAction.TYPE:
+			case NAV_REPLACE_DESTINATION_ACTION:
 				return new NavReplaceDestinationAction(quickAction);
 
-			case NavAutoZoomMapAction.TYPE:
+			case NAV_AUTO_ZOOM_MAP_ACTION:
 				return new NavAutoZoomMapAction(quickAction);
 
-			case NavAutoCenterMapAction.TYPE:
+			case NAV_AUTO_CENTER_MAP_ACTION:
 				return new NavAutoCenterMapAction(quickAction);
 
-			case NavStartStopAction.TYPE:
+			case NAV_START_STOP_ACTION:
 				return new NavStartStopAction(quickAction);
 
-			case NavResumePauseAction.TYPE:
+			case NAV_RESUME_PAUSE_ACTION:
 				return new NavResumePauseAction(quickAction);
 
-			case DayNightModeAction.TYPE:
+			case DAY_NIGHT_MODE_ACTION:
 				return new DayNightModeAction(quickAction);
 
-			case ShowHideGpxTracksAction.TYPE:
+			case SHOW_HIDE_GPX_TRACKS_ACTION:
 				return new ShowHideGpxTracksAction(quickAction);
 
 			default:
@@ -349,89 +349,89 @@ public class QuickActionFactory {
 		}
 	}
 
-	public static @DrawableRes int getActionIcon(int type) {
+	public static @DrawableRes int getActionIcon(QuickAction.QuickActionType type) {
 
 		switch (type) {
 
-			case NewAction.TYPE:
+			case NEW_ACTION:
 				return R.drawable.ic_action_plus;
 
-			case MarkerAction.TYPE:
+			case MARKER_ACTION:
 				return R.drawable.ic_action_flag_dark;
 
-			case FavoriteAction.TYPE:
+			case FAVORITE_ACTION:
 				return R.drawable.ic_action_fav_dark;
 
-			case ShowHideFavoritesAction.TYPE:
+			case SHOW_HIDE_FAVORITES_ACTION:
 				return R.drawable.ic_action_fav_dark;
 
-			case ShowHidePoiAction.TYPE:
+			case SHOW_HIDE_POI_ACTION:
 				return R.drawable.ic_action_gabout_dark;
 
-			case GPXAction.TYPE:
+			case GPX_ACTION:
 				return R.drawable.ic_action_flag_dark;
 
-			case ParkingAction.TYPE:
+			case PARKING_ACTION:
 				return R.drawable.ic_action_parking_dark;
 
-			case TakeAudioNoteAction.TYPE:
+			case TAKE_AUDIO_NOTE_ACTION:
 				return R.drawable.ic_action_micro_dark;
 
-			case TakePhotoNoteAction.TYPE:
+			case TAKE_PHOTO_NOTE_ACTION:
 				return R.drawable.ic_action_photo_dark;
 
-			case TakeVideoNoteAction.TYPE:
+			case TAKE_VIDEO_NOTE_ACTION:
 				return R.drawable.ic_action_video_dark;
 
-			case NavVoiceAction.TYPE:
+			case NAV_VOICE_ACTION:
 				return R.drawable.ic_action_volume_up;
 
-			case ShowHideOSMBugAction.TYPE:
+			case SHOW_HIDE_OSM_BUG_ACTION:
 				return R.drawable.ic_action_bug_dark;
 
-			case AddOSMBugAction.TYPE:
+			case ADD_OSM_BUG_ACTION:
 				return R.drawable.ic_action_bug_dark;
 
-			case AddPOIAction.TYPE:
+			case ADD_POI_ACTION:
 				return R.drawable.ic_action_gabout_dark;
 
-			case MapStyleAction.TYPE:
+			case MAP_STYLE_ACTION:
 				return R.drawable.ic_map;
 
-			case MapSourceAction.TYPE:
+			case MAP_SOURCE_ACTION:
 				return R.drawable.ic_world_globe_dark;
 
-			case MapOverlayAction.TYPE:
+			case MAP_OVERLAY_ACTION:
 				return R.drawable.ic_layer_top_dark;
 
-			case MapUnderlayAction.TYPE:
+			case MAP_UNDERLAY_ACTION:
 				return R.drawable.ic_layer_bottom_dark;
 
-			case NavAddDestinationAction.TYPE:
+			case NAV_ADD_DESTINATION_ACTION:
 				return R.drawable.ic_action_point_add_destination;
 
-			case NavAddFirstIntermediateAction.TYPE:
+			case NAV_ADD_FIRST_INTERMEDIATE_ACTION:
 				return R.drawable.ic_action_intermediate;
 
-			case NavReplaceDestinationAction.TYPE:
+			case NAV_REPLACE_DESTINATION_ACTION:
 				return R.drawable.ic_action_point_add_destination;
 
-			case NavAutoZoomMapAction.TYPE:
+			case NAV_AUTO_ZOOM_MAP_ACTION:
 				return R.drawable.ic_action_search_dark;
 
-			case NavAutoCenterMapAction.TYPE:
+			case NAV_AUTO_CENTER_MAP_ACTION:
 				return R.drawable.ic_action_search_dark;
 
-			case NavStartStopAction.TYPE:
+			case NAV_START_STOP_ACTION:
 				return R.drawable.ic_action_start_navigation;
 
-			case NavResumePauseAction.TYPE:
+			case NAV_RESUME_PAUSE_ACTION:
 				return R.drawable.ic_play_dark;
 
-			case DayNightModeAction.TYPE:
+			case DAY_NIGHT_MODE_ACTION:
 				return R.drawable.ic_action_map_day;
 
-			case ShowHideGpxTracksAction.TYPE:
+			case SHOW_HIDE_GPX_TRACKS_ACTION
 				return R.drawable.ic_gpx_track;
 
 			default:
@@ -439,89 +439,89 @@ public class QuickActionFactory {
 		}
 	}
 
-	public static @StringRes int getActionName(int type) {
+	public static @StringRes int getActionName(QuickAction.QuickActionType type) {
 
 		switch (type) {
 
-			case NewAction.TYPE:
+			case NEW_ACTION:
 				return R.string.quick_action_new_action;
 
-			case MarkerAction.TYPE:
+			case MARKER_ACTION:
 				return R.string.quick_action_add_marker;
 
-			case FavoriteAction.TYPE:
+			case FAVORITE_ACTION:
 				return R.string.quick_action_add_favorite;
 
-			case ShowHideFavoritesAction.TYPE:
+			case SHOW_HIDE_FAVORITES_ACTION:
 				return R.string.quick_action_showhide_favorites_title;
 
-			case ShowHidePoiAction.TYPE:
+			case SHOW_HIDE_POI_ACTION:
 				return R.string.quick_action_showhide_poi_title;
 
-			case GPXAction.TYPE:
+			case GPX_ACTION:
 				return R.string.quick_action_add_gpx;
 
-			case ParkingAction.TYPE:
+			case PARKING_ACTION:
 				return R.string.quick_action_add_parking;
 
-			case TakeAudioNoteAction.TYPE:
+			case TAKE_AUDIO_NOTE_ACTION:
 				return R.string.quick_action_take_audio_note;
 
-			case TakePhotoNoteAction.TYPE:
+			case TAKE_PHOTO_NOTE_ACTION:
 				return R.string.quick_action_take_photo_note;
 
-			case TakeVideoNoteAction.TYPE:
+			case TAKE_VIDEO_NOTE_ACTION:
 				return R.string.quick_action_take_video_note;
 
-			case NavVoiceAction.TYPE:
+			case NAV_VOICE_ACTION:
 				return R.string.quick_action_navigation_voice;
 
-			case ShowHideOSMBugAction.TYPE:
+			case SHOW_HIDE_OSM_BUG_ACTION:
 				return R.string.quick_action_showhide_osmbugs_title;
 
-			case AddOSMBugAction.TYPE:
+			case ADD_OSM_BUG_ACTION:
 				return R.string.quick_action_add_osm_bug;
 
-			case AddPOIAction.TYPE:
+			case ADD_POI_ACTION:
 				return R.string.quick_action_add_poi;
 
-			case MapStyleAction.TYPE:
+			case MAP_STYLE_ACTION:
 				return R.string.quick_action_map_style;
 
-			case MapSourceAction.TYPE:
+			case MAP_SOURCE_ACTION:
 				return R.string.quick_action_map_source;
 
-			case MapOverlayAction.TYPE:
+			case MAP_OVERLAY_ACTION:
 				return R.string.quick_action_map_overlay;
 
-			case MapUnderlayAction.TYPE:
+			case MAP_UNDERLAY_ACTION:
 				return R.string.quick_action_map_underlay;
 
-			case DayNightModeAction.TYPE:
+			case DAY_NIGHT_MODE_ACTION:
 				return R.string.quick_action_day_night_switch_mode;
 
-			case NavAddDestinationAction.TYPE:
+			case NAV_ADD_DESTINATION_ACTION:
 				return R.string.quick_action_add_destination;
 
-			case NavAddFirstIntermediateAction.TYPE:
+			case NAV_ADD_FIRST_INTERMEDIATE_ACTION:
 				return R.string.quick_action_add_first_intermediate;
 
-			case NavReplaceDestinationAction.TYPE:
+			case NAV_REPLACE_DESTINATION_ACTION:
 				return R.string.quick_action_replace_destination;
 
-			case NavAutoZoomMapAction.TYPE:
+			case NAV_AUTO_ZOOM_MAP_ACTION:
 				return R.string.quick_action_auto_zoom;
 
-			case NavAutoCenterMapAction.TYPE:
+			case NAV_AUTO_CENTER_MAP_ACTION:
 				return R.string.quick_action_auto_center;
 
-			case NavStartStopAction.TYPE:
+			case NAV_START_STOP_ACTION:
 				return R.string.quick_action_start_stop_navigation;
 
-			case NavResumePauseAction.TYPE:
+			case NAV_RESUME_PAUSE_ACTION:
 				return R.string.quick_action_resume_pause_navigation;
 
-			case ShowHideGpxTracksAction.TYPE:
+			case SHOW_HIDE_GPX_TRACKS_ACTION:
 				return R.string.quick_action_show_hide_gpx_tracks;
 
 			default:
@@ -529,29 +529,28 @@ public class QuickActionFactory {
 		}
 	}
 
-	public static boolean isActionEditable(int type) {
+	public static boolean isActionEditable(QuickAction.QuickActionType type) {
 
 		switch (type) {
-
-			case NewAction.TYPE:
-			case MarkerAction.TYPE:
-			case ShowHideFavoritesAction.TYPE:
-			case ShowHidePoiAction.TYPE:
-			case ParkingAction.TYPE:
-			case TakeAudioNoteAction.TYPE:
-			case TakePhotoNoteAction.TYPE:
-			case TakeVideoNoteAction.TYPE:
-			case NavVoiceAction.TYPE:
-			case NavAddDestinationAction.TYPE:
-			case NavAddFirstIntermediateAction.TYPE:
-			case NavReplaceDestinationAction.TYPE:
-			case NavAutoZoomMapAction.TYPE:
-			case NavAutoCenterMapAction.TYPE:
-			case ShowHideOSMBugAction.TYPE:
-			case NavStartStopAction.TYPE:
-			case NavResumePauseAction.TYPE:
-			case DayNightModeAction.TYPE:
-			case ShowHideGpxTracksAction.TYPE:
+			case NEW_ACTION:
+			case MARKER_ACTION:
+			case SHOW_HIDE_FAVORITES_ACTION:
+			case SHOW_HIDE_POI_ACTION:
+			case PARKING_ACTION:
+			case TAKE_AUDIO_NOTE_ACTION:
+			case TAKE_PHOTO_NOTE_ACTION:
+			case TAKE_VIDEO_NOTE_ACTION:
+			case NAV_VOICE_ACTION:
+			case NAV_ADD_DESTINATION_ACTION:
+			case NAV_ADD_FIRST_INTERMEDIATE_ACTION:
+			case NAV_REPLACE_DESTINATION_ACTION:
+			case NAV_AUTO_ZOOM_MAP_ACTION:
+			case NAV_AUTO_CENTER_MAP_ACTION:
+			case SHOW_HIDE_OSM_BUG_ACTION:
+			case NAV_START_STOP_ACTION:
+			case NAV_RESUME_PAUSE_ACTION:
+			case DAY_NIGHT_MODE_ACTION:
+			case SHOW_HIDE_GPX_TRACKS_ACTION:
 				return false;
 
 			default:

@@ -12,7 +12,7 @@ import net.osmand.plus.quickaction.QuickAction;
 
 public class ShowHideFavoritesAction extends QuickAction {
 
-	public static final int TYPE = 4;
+	public static final QuickActionType TYPE = QuickActionType.SHOW_HIDE_FAVORITES_ACTION;
 
 	public ShowHideFavoritesAction() {
 		super(TYPE);

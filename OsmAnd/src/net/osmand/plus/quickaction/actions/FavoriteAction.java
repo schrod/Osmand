@@ -26,7 +26,7 @@ import net.osmand.plus.widgets.AutoCompleteTextViewEx;
 
 public class FavoriteAction extends QuickAction {
 
-	public static final int TYPE = 3;
+	public static final QuickActionType TYPE = QuickActionType.FAVORITE_ACTION;
 
 	public static final String KEY_NAME = "name";
 	public static final String KEY_DIALOG = "dialog";

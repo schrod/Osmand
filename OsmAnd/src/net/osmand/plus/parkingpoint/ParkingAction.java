@@ -13,7 +13,7 @@ import net.osmand.plus.quickaction.QuickAction;
 
 public class ParkingAction extends QuickAction {
 
-	public static final int TYPE = 7;
+	public static final QuickActionType TYPE = QuickActionType.PARKING_ACTION;
 
 	public ParkingAction() {
 		super(TYPE);

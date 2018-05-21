@@ -966,6 +966,7 @@ public class RouteCalculationResult {
 				cacheCurrentTextDirectionInfo = currentDirectionInfo;
 				List<RouteDirectionInfo> list = currentDirectionInfo == 0 ? directions : 
 					directions.subList(currentDirectionInfo + 1, directions.size());
+
 				cacheAgreggatedDirections = new ArrayList<RouteDirectionInfo>();
 				RouteDirectionInfo p = null;
 				for(RouteDirectionInfo i : list) {

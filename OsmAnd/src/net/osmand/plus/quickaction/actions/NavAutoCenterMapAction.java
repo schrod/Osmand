@@ -14,7 +14,7 @@ import net.osmand.plus.quickaction.QuickAction;
 
 public class NavAutoCenterMapAction extends QuickAction {
 
-    public static final int TYPE = 28;
+    public static final QuickActionType TYPE = QuickActionType.NAV_AUTO_CENTER_MAP_ACTION;
 
     public NavAutoCenterMapAction() {
         super(TYPE);

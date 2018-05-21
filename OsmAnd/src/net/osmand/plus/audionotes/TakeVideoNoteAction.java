@@ -12,7 +12,7 @@ import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.quickaction.QuickAction;
 
 public class TakeVideoNoteAction extends QuickAction {
-	public static final int TYPE = 9;
+	public static final QuickActionType TYPE = QuickActionType.TAKE_VIDEO_NOTE_ACTION;
 
 	public TakeVideoNoteAction() {
 		super(TYPE);

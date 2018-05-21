@@ -32,7 +32,7 @@ import java.util.Set;
 
 public class ShowHidePoiAction extends QuickAction {
 
-	public static final int TYPE = 5;
+	public static final QuickActionType TYPE = QuickActionType.SHOW_HIDE_POI_ACTION;
 
 	public static final String KEY_FILTERS = "filters";
 

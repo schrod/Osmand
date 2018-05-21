@@ -33,7 +33,7 @@ public abstract class SwitchableAction<T> extends QuickAction {
 
 	private transient EditText title;
 
-	protected SwitchableAction(int type) {
+	protected SwitchableAction(QuickActionType type) {
 		super(type);
 	}
 

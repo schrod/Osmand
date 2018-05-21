@@ -14,7 +14,7 @@ import net.osmand.plus.quickaction.QuickAction;
 
 public class NavAutoZoomMapAction extends QuickAction {
 
-	public static final int TYPE = 23;
+	public static final QuickActionType TYPE = QuickActionType.NAV_AUTO_ZOOM_MAP_ACTION;
 
 	public NavAutoZoomMapAction() {
 		super(TYPE);

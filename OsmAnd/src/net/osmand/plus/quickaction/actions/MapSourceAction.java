@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class MapSourceAction extends SwitchableAction<Pair<String, String>> {
 
-	public static final int TYPE = 17;
+	public static final QuickActionType TYPE = QuickActionType.MAP_SOURCE_ACTION;
 	public static final String LAYER_OSM_VECTOR = "LAYER_OSM_VECTOR";
 
 	private final static String KEY_SOURCE = "source";

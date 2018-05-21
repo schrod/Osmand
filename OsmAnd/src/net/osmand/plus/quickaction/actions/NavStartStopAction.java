@@ -16,7 +16,7 @@ import net.osmand.plus.routing.RoutingHelper;
 
 public class NavStartStopAction extends QuickAction {
 
-	public static final int TYPE = 25;
+	public static final QuickActionType TYPE = QuickActionType.NAV_START_STOP_ACTION;
 	private static final String KEY_DIALOG = "dialog";
 
 	public NavStartStopAction() {

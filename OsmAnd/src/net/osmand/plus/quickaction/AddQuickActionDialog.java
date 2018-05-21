@@ -180,7 +180,7 @@ public class AddQuickActionDialog extends DialogFragment {
         @Override
         public int getItemViewType(int position) {
 
-            if (data.get(position).type == 0)
+            if (data.get(position).type == QuickAction.QuickActionType.QUICK_ACTION_HEADER)
                 return HEADER;
 
             return ITEM;
