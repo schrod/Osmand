@@ -24,6 +24,7 @@ import net.osmand.plus.OsmandSettings;
 import net.osmand.plus.R;
 import net.osmand.plus.dashboard.DashboardOnMap;
 import net.osmand.plus.mapcontextmenu.MapContextMenu;
+import net.osmand.plus.routing.RouteCalculationResult;
 import net.osmand.plus.routing.RoutingHelper;
 import net.osmand.plus.routing.IRouteInformationListener;
 import net.osmand.plus.views.AnimateDraggingMapThread;
@@ -291,18 +292,54 @@ public class MapViewTrackingUtilities implements OsmAndLocationListener, IMapLoc
 	}
 
 	private float defineZoomFromSpeed(RotatedTileBox tb, float speed) {
-		if (speed < 7f / 3.6) {
-			return 0;
-		}
-		double visibleDist = tb.getDistance(tb.getCenterPixelX(), 0, tb.getCenterPixelX(), tb.getCenterPixelY());
-		float time = 75f; // > 83 km/h show 75 seconds 
-		if (speed < 83f / 3.6) {
-			time = 60f;
-		}
-		time /= settings.AUTO_ZOOM_MAP_SCALE.get().coefficient;
-		double distToSee = speed * time;
+		double distBySpeed = 0;
+	    if (speed >= 7f / 3.6) {
+
+            float time = 75f; // > 83 km/h show 75 seconds
+            if (speed < 83f / 3.6) {
+                time = 60f;
+            }
+            time /= settings.AUTO_ZOOM_MAP_SCALE.get().coefficient;
+            distBySpeed = speed * time;
+        }
+
+		//Distance to see should be closest of distance to next turn or speed based
+		double distToTurn = getDistanceToNextTurn();
+
+        double distToSee;
+	    if (distBySpeed <= 0 && distToTurn <= 0)
+        {
+            return 0;
+        }
+        else if (distBySpeed <= 0 && distToTurn > 0)
+        {
+            distToSee = distToTurn;
+        }
+        else if (distBySpeed > 0 && distToTurn <= 0)
+        {
+            distToSee = distBySpeed;
+        }
+        else {
+	        distToSee = Math.min(distToTurn, distBySpeed);
+        }
+
+        double visibleDist = tb.getDistance(tb.getCenterPixelX(), 0, tb.getCenterPixelX(), tb.getCenterPixelY());
 		// check if 17, 18 is correct?
 		return (float) (Math.log(visibleDist / distToSee) / Math.log(2.0f));
+	}
+
+	private float getDistanceToNextTurn() {
+		final RoutingHelper routingHelper = app.getRoutingHelper();
+		boolean followingMode = routingHelper.isFollowingMode() || app.getLocationProvider().getLocationSimulation().isRouteAnimating();
+		if (routingHelper != null && routingHelper.isRouteCalculated() && followingMode) {
+			//TODO - not sure if I need tow worry about off route?
+			RouteCalculationResult.NextDirectionInfo calc1 = new RouteCalculationResult.NextDirectionInfo();
+			RouteCalculationResult.NextDirectionInfo r = routingHelper.getNextRouteDirectionInfo(calc1, true);
+			if (r != null && r.distanceTo > 0 && r.directionInfo != null) {
+				return r.distanceTo * 1.5f; //Add margin to display;
+			}
+		}
+		return -1;
 	}
 
 	public Pair<Integer, Double> autozoom(RotatedTileBox tb, Location location) {
