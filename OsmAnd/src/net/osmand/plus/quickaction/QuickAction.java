@@ -128,7 +128,7 @@ public class QuickAction {
     }
 
 	public long getType() {
-		return type;
+		return type.toInt();
 	}
 
     public boolean isActionEditable() {

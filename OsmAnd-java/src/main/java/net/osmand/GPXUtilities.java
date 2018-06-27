@@ -39,6 +39,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.Stack;
 import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class GPXUtilities {
 	public final static Log log = PlatformUtil.getLog(GPXUtilities.class);
@@ -192,6 +194,7 @@ public class GPXUtilities {
 		public String category = null;
 		public String desc = null;
 		public String comment = null;
+		public String icon = null;
 		// by default
 		public long time = 0;
 		public double ele = Double.NaN;
@@ -213,6 +216,7 @@ public class GPXUtilities {
 			this.category = wptPt.category;
 			this.desc = wptPt.desc;
 			this.comment = wptPt.comment;
+			this.icon = wptPt.icon;
 
 			this.time = wptPt.time;
 			this.ele = wptPt.ele;
@@ -243,6 +247,19 @@ public class GPXUtilities {
 			return lon;
 		}
 
+
+//		@Override
+//		public PointDescription getPointDescription(Context ctx) {
+//			return new PointDescription(PointDescription.POINT_TYPE_WPT, name);
+//		}
+
+		@Override
+		public String getIcon(String defCustomIcon){
+			if (icon != null) {
+				return icon;
+			}
+			return super.getIcon(defCustomIcon);
+		}
 
 		public WptPt(double lat, double lon, long time, double ele, double speed, double hdop) {
 			this.lat = lat;
@@ -1994,6 +2011,16 @@ public class GPXUtilities {
 								((WptPt) parse).time = parseTime(text, format, formatMillis);
 							} else if (tag.toLowerCase().equals("subclass")) {
 								endOfTrkSegment = true;
+							} else if (tag.equals("sym")) {
+								String text = readText(parser, "sym");
+								if (text != null) {
+									//Assume this is in the format of BaseCamp custom symbols, convert
+									Pattern p = Pattern.compile("Custom (\\d+)");
+									Matcher m = p.matcher(text);
+									if (m.matches()) {
+                                        ((WptPt) parse).icon = String.format("%03d.png",Integer.parseInt(m.group(1)));
+									}
+								}
 							}
 						}
 					}

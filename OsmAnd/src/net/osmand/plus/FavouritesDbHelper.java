@@ -631,6 +631,7 @@ public class FavouritesDbHelper {
 			}
 			fp.setColor(p.getColor(0));
 			fp.setIcon(p.getIcon(""));
+
 			fp.setVisible(!p.getExtensionsToRead().containsKey(HIDDEN));
 			points.put(getKey(fp), fp);
 		}
