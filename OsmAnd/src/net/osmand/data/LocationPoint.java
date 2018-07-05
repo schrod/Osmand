@@ -15,6 +15,8 @@ public interface LocationPoint {
 
 	public int getColor();
 
+	public String getIcon(String defCustomIcon);
+	
 	public boolean isVisible();
 
 	public PointDescription getPointDescription(Context ctx);

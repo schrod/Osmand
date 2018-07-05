@@ -372,7 +372,7 @@ public class QuickSearchListItem {
 				}
 			case WPT:
 				WptPt wpt = (WptPt) searchResult.object;
-				return FavoriteImageDrawable.getOrCreate(app, wpt.getColor(), "", false);
+				return FavoriteImageDrawable.getOrCreate(app, wpt.getColor(), wpt.getIcon(""), false);
 			case UNKNOWN_NAME_FILTER:
 				break;
 		}

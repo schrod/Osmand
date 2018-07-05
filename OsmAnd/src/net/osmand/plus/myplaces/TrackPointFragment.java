@@ -1089,8 +1089,10 @@ public class TrackPointFragment extends OsmandExpandableListFragment implements 
 			boolean isWaypoint = gpxItem != null && group.getType() == GpxDisplayItemType.TRACK_POINTS;
 			if (isWaypoint) {
 				int groupColor = group.getColor();
+				String iconName = "";
 				if (wpt != null) {
 					groupColor = wpt.getColor(groupColor);
+					iconName = wpt.getIcon("");
 				}
 				if (groupColor == 0) {
 					groupColor = ContextCompat.getColor(app, R.color.gpx_color_point);
@@ -1110,7 +1112,7 @@ public class TrackPointFragment extends OsmandExpandableListFragment implements 
 				} else {
 					description.setVisibility(View.GONE);
 				}
-				icon.setImageDrawable(FavoriteImageDrawable.getOrCreate(getActivity(), groupColor, "", false));
+				icon.setImageDrawable(FavoriteImageDrawable.getOrCreate(getActivity(), groupColor, iconName, false));
 			} else {
 				boolean showAll = gpxItem == null;
 				title.setVisibility(showAll ? View.GONE : View.VISIBLE);
@@ -1131,6 +1133,8 @@ public class TrackPointFragment extends OsmandExpandableListFragment implements 
 					} else {
 						description.setVisibility(View.GONE);
 					}
+					//DAS TODO - Set Icon/color - I think this would require updating the parsing to include this info in route pts
+					//Or implementing  a way to cross reference the wpts database
 					icon.setImageDrawable(app.getUIUtilities().getThemedIcon(R.drawable.ic_action_marker_dark));
 				}
 			}

@@ -168,6 +168,11 @@ public class AlarmInfo implements LocationPoint {
 	}
 
 	@Override
+	public String getIcon(String defCustomIcon) {
+		return defCustomIcon;
+	}
+
+	@Override
 	public boolean isVisible() {
 		return false;
 	}

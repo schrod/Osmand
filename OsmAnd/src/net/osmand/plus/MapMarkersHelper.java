@@ -1458,6 +1458,15 @@ public class MapMarkersHelper {
 		}
 
 		@Override
+		public String getIcon(String defCustomIcon) {
+			if (wptPt != null) {
+				return wptPt.getIcon(defCustomIcon);
+			} else {
+				return defCustomIcon;
+			}
+		}
+
+		@Override
 		public boolean isVisible() {
 			return false;
 		}

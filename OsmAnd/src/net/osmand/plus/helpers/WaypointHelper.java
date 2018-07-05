@@ -750,8 +750,7 @@ public class WaypointHelper {
 				}
 
 			} else if (type == FAVORITES || type == WAYPOINTS) {
-				//TODO - figure out how to get the favorite inorder to get the icon
-				return FavoriteImageDrawable.getOrCreate(uiCtx, point.getColor(), "", false);
+				return FavoriteImageDrawable.getOrCreate(uiCtx, point.getColor(), point.getIcon(""), false);
 
 			} else if (type == ALARMS) {
 				//assign alarm list icons manually for now
@@ -867,6 +866,11 @@ public class WaypointHelper {
 		@Override
 		public int getColor() {
 			return 0;
+		}
+
+		@Override
+		public String getIcon(String defCustomIcon) {
+			return defCustomIcon;
 		}
 
 		@Override

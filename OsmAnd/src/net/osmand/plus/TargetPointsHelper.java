@@ -139,6 +139,12 @@ public class TargetPointsHelper {
 		}
 
 		@Override
+		public String getIcon(String defCustomIcon) {
+			//TODO??
+			return defCustomIcon;
+		}
+
+		@Override
 		public boolean isVisible() {
 			return false;
 		}

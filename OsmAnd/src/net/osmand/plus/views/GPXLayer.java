@@ -493,7 +493,7 @@ public class GPXLayer extends OsmandMapLayer implements ContextMenuLayer.IContex
 			fid = FavoriteImageDrawable.getOrCreateSyncedIcon(view.getContext(), pointColor);
 			history = marker.history;
 		} else {
-			fid = FavoriteImageDrawable.getOrCreate(view.getContext(), pointColor, "", true);
+			fid = FavoriteImageDrawable.getOrCreate(view.getContext(), pointColor, o.getIcon(""), true);
 		}
 		fid.drawBitmapInCenter(canvas, x, y, history);
 	}
