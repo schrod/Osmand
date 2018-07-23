@@ -44,7 +44,8 @@ public class QuickAction {
         NAV_RESUME_PAUSE_ACTION             (26),
         NAV_AUTO_CENTER_MAP_ACTION          (28),
         DAY_NIGHT_MODE_ACTION               (29),
-        SHOW_HIDE_GPX_TRACKS_ACTION         (30);
+        SHOW_HIDE_GPX_TRACKS_ACTION         (30),        
+        NAV_SKIP_FIRST_INTERMEDIATE_ACTION  (31);
 
         private final int value;
 

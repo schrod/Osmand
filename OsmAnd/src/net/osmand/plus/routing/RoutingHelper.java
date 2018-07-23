@@ -340,6 +340,40 @@ public class RoutingHelper {
 		return getOrthogonalDistance(lastFixedLocation, routeNodes.get(route.currentRoute -1), routeNodes.get(route.currentRoute));
 	}
 
+	public void skipNextIntermediate() {
+		if(route.getIntermediatePointsToPass()  > 0
+				&& !isRoutePlanningMode) {
+			showMessage(app.getString(R.string.arrived_at_intermediate_point));
+			route.passIntermediatePoint();
+			TargetPointsHelper targets = app.getTargetPointsHelper();
+			String name = "";
+			if(intermediatePoints != null && !intermediatePoints.isEmpty()) {
+				LatLon rm = intermediatePoints.remove(0);
+				List<TargetPoint> ll = targets.getIntermediatePointsNavigation();
+				int ind = -1;
+				for(int i = 0; i < ll.size(); i++) {
+					if(ll.get(i).point != null && MapUtils.getDistance(ll.get(i).point, rm) < 5) {
+						name = ll.get(i).getOnlyName();
+						ind = i;
+						break;
+					}
+				}
+				if(ind >= 0) {
+					targets.removeWayPoint(false, ind);
+					recalculateRouteInBackground(lastFixedLocation, finalLocation, intermediatePoints, currentGPXRoute,
+							null, false, false);
+				}
+			}
+			if(isFollowingMode) {
+				voiceRouter.arrivedIntermediatePoint(name);
+			}
+			// double check
+			while(intermediatePoints != null  && route.getIntermediatePointsToPass() < intermediatePoints.size()) {
+				intermediatePoints.remove(0);
+			}
+		}
+	}
+
 	private Location setCurrentLocation(Location currentLocation, boolean returnUpdatedLocation,
 			RouteCalculationResult previousRoute, boolean targetPointsChanged) {
 		Location locationProjection = currentLocation;

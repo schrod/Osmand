@@ -30,6 +30,7 @@ import net.osmand.plus.quickaction.actions.NavAutoZoomMapAction;
 import net.osmand.plus.quickaction.actions.NavAutoCenterMapAction;
 import net.osmand.plus.quickaction.actions.NavReplaceDestinationAction;
 import net.osmand.plus.quickaction.actions.NavResumePauseAction;
+import net.osmand.plus.quickaction.actions.NavSkipFirstIntermediateAction;
 import net.osmand.plus.quickaction.actions.NavStartStopAction;
 import net.osmand.plus.quickaction.actions.NavVoiceAction;
 import net.osmand.plus.quickaction.actions.NewAction;
@@ -128,6 +129,7 @@ public class QuickActionFactory {
 		QuickAction voice = new NavVoiceAction();
 		QuickAction addDestination = new NavAddDestinationAction();
 		QuickAction addFirstIntermediate = new NavAddFirstIntermediateAction();
+		QuickAction skipFirstIntermediate = new NavSkipFirstIntermediateAction();
 		QuickAction replaceDestination = new NavReplaceDestinationAction();
 		QuickAction autoZoomMap = new NavAutoZoomMapAction();
 		QuickAction autoCenterMap = new NavAutoCenterMapAction();
@@ -144,6 +146,9 @@ public class QuickActionFactory {
 		}
 		if (!addFirstIntermediate.hasInstanceInList(active)) {
 			navigationQuickActions.add(addFirstIntermediate);
+		}
+		if (!skipFirstIntermediate.hasInstanceInList(active)) {
+			navigationQuickActions.add(skipFirstIntermediate);
 		}
 		if (!replaceDestination.hasInstanceInList(active)) {
 			navigationQuickActions.add(replaceDestination);
@@ -250,6 +255,9 @@ public class QuickActionFactory {
 
 			case DAY_NIGHT_MODE_ACTION:
 				return new DayNightModeAction();
+				
+			case NAV_SKIP_FIRST_INTERMEDIATE_ACTION:
+				return new NavSkipFirstIntermediateAction();
 
 			case SHOW_HIDE_GPX_TRACKS_ACTION:
 				return new ShowHideGpxTracksAction();
@@ -340,6 +348,9 @@ public class QuickActionFactory {
 
 			case DAY_NIGHT_MODE_ACTION:
 				return new DayNightModeAction(quickAction);
+				
+			case NAV_SKIP_FIRST_INTERMEDIATE_ACTION:
+				return new NavSkipFirstIntermediateAction(quickAction);
 
 			case SHOW_HIDE_GPX_TRACKS_ACTION:
 				return new ShowHideGpxTracksAction(quickAction);
@@ -430,8 +441,11 @@ public class QuickActionFactory {
 
 			case DAY_NIGHT_MODE_ACTION:
 				return R.drawable.ic_action_map_day;
+				
+			case NAV_SKIP_FIRST_INTERMEDIATE_ACTION:
+				return R.drawable.ic_action_intermediate;
 
-			case SHOW_HIDE_GPX_TRACKS_ACTION
+			case SHOW_HIDE_GPX_TRACKS_ACTION:
 				return R.drawable.ic_gpx_track;
 
 			default:
@@ -523,6 +537,9 @@ public class QuickActionFactory {
 
 			case SHOW_HIDE_GPX_TRACKS_ACTION:
 				return R.string.quick_action_show_hide_gpx_tracks;
+
+			case NAV_SKIP_FIRST_INTERMEDIATE_ACTION:
+				return R.string.quick_action_skip_first_intermediate;
 
 			default:
 				return R.string.quick_action_new_action;
