@@ -360,12 +360,8 @@ public class RoutingHelper {
 				}
 				if(ind >= 0) {
 					targets.removeWayPoint(false, ind);
-					recalculateRouteInBackground(lastFixedLocation, finalLocation, intermediatePoints, currentGPXRoute,
-							null, false, false);
 				}
-			}
-			if(isFollowingMode) {
-				voiceRouter.arrivedIntermediatePoint(name);
+				recalculateRouteInBackground(lastFixedLocation, finalLocation, intermediatePoints, currentGPXRoute, route, true, false);
 			}
 			// double check
 			while(intermediatePoints != null  && route.getIntermediatePointsToPass() < intermediatePoints.size()) {
