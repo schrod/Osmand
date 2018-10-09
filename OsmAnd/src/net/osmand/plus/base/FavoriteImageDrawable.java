@@ -23,6 +23,8 @@ import net.osmand.plus.OsmandApplication;
 import java.io.File;
 import java.util.TreeMap;
 
+import net.osmand.plus.R;
+
 public class FavoriteImageDrawable extends Drawable {
 
 	private boolean withShadow;
