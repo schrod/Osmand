@@ -122,6 +122,7 @@ public class FavouritesLayer extends OsmandMapLayer implements ContextMenuLayer.
 
 				for (FavoriteGroup group : favorites.getFavoriteGroups()) {
 					List<Pair<FavouritePoint, MapMarker>> fullObjects = new ArrayList<>();
+					List<Pair<FavouritePoint, MapMarker>> smallObjects = new ArrayList<>();
 					boolean synced = mapMarkersHelper.getMarkersGroup(group) != null;
 					for (FavouritePoint o : group.points) {
 						double lat = o.getLatitude();
@@ -140,15 +141,16 @@ public class FavouritesLayer extends OsmandMapLayer implements ContextMenuLayer.
 							float y = tileBox.getPixYFromLatLon(lat, lon);
 
 							if (intersects(boundIntersections, x, y, iconSize, iconSize)) {
-								@ColorInt
-								int color;
-								if (marker != null && marker.history) {
-									color = grayColor;
-								} else {
-									color = o.getColor() == 0 || o.getColor() == Color.BLACK ? defaultColor : o.getColor();
-								}
-								paintIcon.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.MULTIPLY));
-								canvas.drawBitmap(pointSmall, x - pointSmall.getWidth() / 2, y - pointSmall.getHeight() / 2, paintIcon);
+//								@ColorInt
+//								int color;
+//								if (marker != null && marker.history) {
+//									color = grayColor;
+//								} else {
+//									color = o.getColor() == 0 || o.getColor() == Color.BLACK ? defaultColor : o.getColor();
+//								}
+//								paintIcon.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.MULTIPLY));
+//								canvas.drawBitmap(pointSmall, x - pointSmall.getWidth() / 2, y - pointSmall.getHeight() / 2, paintIcon);
+								smallObjects.add(new Pair<>(o, marker));
 								smallObjectsLatLon.add(new LatLon(lat, lon));
 							} else {
 								fullObjects.add(new Pair<>(o, marker));
@@ -157,6 +159,14 @@ public class FavouritesLayer extends OsmandMapLayer implements ContextMenuLayer.
 						}
 
 					}
+
+					for (Pair<FavouritePoint, MapMarker> pair : smallObjects) {
+						FavouritePoint o = pair.first;
+						float x = tileBox.getPixXFromLatLon(o.getLatitude(), o.getLongitude());
+						float y = tileBox.getPixYFromLatLon(o.getLatitude(), o.getLongitude());
+						drawSmallPoint(canvas, o, x, y, pair.second);
+					}
+
 					for (Pair<FavouritePoint, MapMarker> pair : fullObjects) {
 						FavouritePoint o = pair.first;
 						float x = tileBox.getPixXFromLatLon(o.getLatitude(), o.getLongitude());
@@ -187,6 +197,32 @@ public class FavouritesLayer extends OsmandMapLayer implements ContextMenuLayer.
 
 		}
 		fid.drawBitmapInCenter(canvas, x, y, history);
+	}
+
+	private void drawSmallPoint(Canvas canvas, FavouritePoint o, float x, float y, @Nullable MapMarker marker) {
+		if (o.getIcon() == null) {
+			@ColorInt
+			int color;
+			if (marker != null && marker.history) {
+				color = grayColor;
+			} else {
+				color = o.getColor() == 0 || o.getColor() == Color.BLACK ? defaultColor : o.getColor();
+			}
+			paintIcon.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.MULTIPLY));
+			canvas.drawBitmap(pointSmall, x - pointSmall.getWidth() / 2, y - pointSmall.getHeight() / 2, paintIcon);
+		} else {
+
+			FavoriteImageDrawable fid;
+			boolean history = false;
+			if (marker != null) {
+				fid = FavoriteImageDrawable.getOrCreateSyncedIcon(view.getContext(), o.getColor());
+				history = marker.history;
+			} else {
+				fid = FavoriteImageDrawable.getOrCreate(view.getContext(), o.getColor(), o.getIcon(), true);
+
+			}
+			fid.drawSmallBitmapInCenter(canvas, x, y, history);
+		}
 	}
 	
 	

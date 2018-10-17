@@ -44,6 +44,7 @@ public class FavoriteImageDrawable extends Drawable {
 	private ColorFilter colorFilter;
 	private ColorFilter grayFilter;
 	private Bitmap icon;
+	private Bitmap iconSmall;
 
 	private enum FavoriteImageType {
 		DRAWN,
@@ -67,6 +68,7 @@ public class FavoriteImageDrawable extends Drawable {
 		initSimplePaint(paintInnerCircle, col);
 		colorFilter = new PorterDuffColorFilter(col, PorterDuff.Mode.MULTIPLY);
 		grayFilter = new PorterDuffColorFilter(res.getColor(R.color.color_favorite_gray), PorterDuff.Mode.MULTIPLY);
+		type = FavoriteImageType.DRAWN;
 
 		if (!customIconFileName.isEmpty()) {
 			OsmandApplication app = (OsmandApplication) ctx.getApplicationContext();
@@ -74,6 +76,8 @@ public class FavoriteImageDrawable extends Drawable {
 			if (iconFile.exists()) {
 				icon = BitmapFactory.decodeFile(iconFile.getAbsolutePath());
 				if (icon != null) {
+					Bitmap pointSmall = BitmapFactory.decodeResource(res, R.drawable.map_white_shield_small); //This is kind of a hack
+					iconSmall = Bitmap.createScaledBitmap(icon, pointSmall.getWidth(), pointSmall.getHeight(), true);
 					//Scale the icon to match the size of the drawn icons
 					icon = Bitmap.createScaledBitmap(icon, favBackground.getWidth(), favBackground.getHeight(), true);
 					this.type = FavoriteImageType.ICON;
@@ -137,6 +141,15 @@ public class FavoriteImageDrawable extends Drawable {
 		}
 	}
 
+	public void drawSmall(Canvas canvas) {
+		Rect bs = getBounds();
+		if (type == FavoriteImageType.DRAWN) {
+			//Shouldn't get here
+		} else {
+			canvas.drawBitmap(iconSmall, bs.exactCenterX() - iconSmall.getWidth() / 2f, bs.exactCenterY() - iconSmall.getHeight() / 2f, paintIcon);
+		}
+	}
+
 	public void drawBitmapInCenter(Canvas canvas, float x, float y, boolean history) {
 		this.history = history;
 
@@ -147,6 +160,15 @@ public class FavoriteImageDrawable extends Drawable {
 		canvas.translate(-dx, -dy);
 	}
 
+	public void drawSmallBitmapInCenter(Canvas canvas, float x, float y, boolean history) {
+		this.history = history;
+
+		float dx = x - getIntrinsicWidth() / 2f;
+		float dy = y - getIntrinsicHeight() / 2f;
+		canvas.translate(dx, dy);
+		drawSmall(canvas);
+		canvas.translate(-dx, -dy);
+	}
 
     @Override
 	public int getOpacity() {
@@ -171,8 +193,10 @@ public class FavoriteImageDrawable extends Drawable {
 		FavoriteImageDrawable drawable = cache.get(hash);
 		if (drawable == null) {
 			drawable = new FavoriteImageDrawable(a, color, customIconFileName, withShadow, synced);
-			drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-			cache.put(hash, drawable);
+			if (drawable != null) {
+				drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+				cache.put(hash, drawable);
+			}
 		}
 		return drawable;
 	}
