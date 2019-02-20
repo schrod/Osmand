@@ -336,7 +336,7 @@ public class MapViewTrackingUtilities implements OsmAndLocationListener, IMapLoc
 			RouteCalculationResult.NextDirectionInfo calc1 = new RouteCalculationResult.NextDirectionInfo();
 			RouteCalculationResult.NextDirectionInfo r = routingHelper.getNextRouteDirectionInfo(calc1, true);
 			if (r != null && r.distanceTo > 0 && r.directionInfo != null) {
-				return r.distanceTo * 1.5f; //Add margin to display;
+				return r.distanceTo * 2.0f; //Add margin to display;
 			}
 		}
 		return -1;

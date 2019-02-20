@@ -260,7 +260,6 @@ public class GPXUtilities {
 			}
 			return super.getIcon(defCustomIcon);
 		}
-
 		public WptPt(double lat, double lon, long time, double ele, double speed, double hdop) {
 			this.lat = lat;
 			this.lon = lon;
@@ -2021,6 +2020,8 @@ public class GPXUtilities {
                                         ((WptPt) parse).icon = String.format("%03d.png",Integer.parseInt(m.group(1)));
 									}
 								}
+							} else if (tag.toLowerCase().equals("subclass")) {
+								endOfTrkSegment = true;
 							}
 						}
 					}

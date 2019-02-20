@@ -56,8 +56,6 @@ import net.osmand.plus.liveupdates.OsmLiveActivity;
 import net.osmand.plus.mapcontextmenu.AdditionalActionsBottomSheetDialogFragment;
 import net.osmand.plus.mapmarkers.MapMarkersDialogFragment;
 import net.osmand.plus.mapmarkers.MarkersPlanRouteContext;
-import net.osmand.plus.TargetPointsHelper;
-import net.osmand.plus.TargetPointsHelper.TargetPoint;
 import net.osmand.plus.measurementtool.MeasurementToolFragment;
 import net.osmand.plus.monitoring.OsmandMonitoringPlugin;
 import net.osmand.plus.profiles.AppModesBottomSheetDialogFragment;
@@ -433,49 +431,26 @@ public class MapActivityActions implements DialogProvider {
 		} else {
 			GPXRouteParamsBuilder params = new GPXRouteParamsBuilder(result, mapActivity.getMyApplication()
 					.getSettings());
-			TargetPointsHelper tg = mapActivity.getMyApplication().getTargetPointsHelper();
 			if (result.hasRtePt() && !result.hasTrkPt()) {
 				settings.GPX_CALCULATE_RTEPT.set(true);
-
-				params.setCalculateOsmAndRouteParts(settings.GPX_ROUTE_CALC_OSMAND_PARTS.get());
-				params.setUseIntermediatePointsRTE(settings.GPX_CALCULATE_RTEPT.get());
-				params.setCalculateOsmAndRoute(settings.GPX_ROUTE_CALC.get());
-
-				List<TargetPoint> targetPoints = new ArrayList<>();
-
-				//TODO - select index?
-                List<WptPt> points = result.routes.get(0).points;
-				WptPt w = points.get(0);  //assume first point is start
-				tg.setStartPoint(new LatLon(w.lat, w.lon), false, w.getPointDescription(mapActivity));
-
-				for (int k = 1; k < points.size(); k++) {
-					w = points.get(k);
-					TargetPoint t = new TargetPoint(new LatLon(w.lat, w.lon), w.getPointDescription(mapActivity));
-					targetPoints.add(t);
-				}
-
-				tg.reorderAllTargetPoints(targetPoints, false);
-
 			} else {
 				settings.GPX_CALCULATE_RTEPT.set(false);
-
-				params.setCalculateOsmAndRouteParts(settings.GPX_ROUTE_CALC_OSMAND_PARTS.get());
-				params.setUseIntermediatePointsRTE(settings.GPX_CALCULATE_RTEPT.get());
-				params.setCalculateOsmAndRoute(settings.GPX_ROUTE_CALC.get());
-
-				List<Location> ps = params.getPoints();
-				mapActivity.getRoutingHelper().setGpxParams(params);
-				settings.FOLLOW_THE_GPX_ROUTE.set(result.path);
-				if (!ps.isEmpty()) {
-					Location startLoc = ps.get(0);
-					Location finishLoc = ps.get(ps.size() - 1);
-
-					tg.navigateToPoint(new LatLon(finishLoc.getLatitude(), finishLoc.getLongitude()), false, -1);
-					if (startLoc != finishLoc) {
-						tg.setStartPoint(new LatLon(startLoc.getLatitude(), startLoc.getLongitude()), false, null);
-					} else {
-						tg.clearStartPoint(false);
-					}
+			}
+			params.setCalculateOsmAndRouteParts(settings.GPX_ROUTE_CALC_OSMAND_PARTS.get());
+			params.setUseIntermediatePointsRTE(settings.GPX_CALCULATE_RTEPT.get());
+			params.setCalculateOsmAndRoute(settings.GPX_ROUTE_CALC.get());
+			List<Location> ps = params.getPoints();
+			mapActivity.getRoutingHelper().setGpxParams(params);
+			settings.FOLLOW_THE_GPX_ROUTE.set(result.path);
+			if (!ps.isEmpty()) {
+				Location startLoc = ps.get(0);
+				Location finishLoc = ps.get(ps.size() - 1);
+				TargetPointsHelper tg = mapActivity.getMyApplication().getTargetPointsHelper();
+				tg.navigateToPoint(new LatLon(finishLoc.getLatitude(), finishLoc.getLongitude()), false, -1);
+				if (startLoc != finishLoc) {
+					tg.setStartPoint(new LatLon(startLoc.getLatitude(), startLoc.getLongitude()), false, null);
+				} else {
+					tg.clearStartPoint(false);
 				}
 			}
 		}

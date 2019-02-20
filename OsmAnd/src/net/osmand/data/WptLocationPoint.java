@@ -33,6 +33,11 @@ public class WptLocationPoint implements LocationPoint {
 		return pt.isVisible();
 	}
 
+	@Override
+	public String getIcon(String defCustomIcon){
+		return pt.getIcon(defCustomIcon);
+	}
+
 	public PointDescription getPointDescription(Context ctx) {
 		return new PointDescription(PointDescription.POINT_TYPE_WPT, pt.name);
 	}

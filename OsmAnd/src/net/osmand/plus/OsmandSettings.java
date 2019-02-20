@@ -3152,7 +3152,7 @@ public class OsmandSettings {
 		CLOSE(R.string.auto_zoom_close, 2f, 19f),
 		//coeffiecent of 1 = 75s > 51MPH, 60s otherwise
 		// Time is divided by coeficent => 0.25 = 300, 0.5 = 100
-		DAVE(R.string.auto_zoom_dave, 0.5f, 19f);
+		DAVE(R.string.auto_zoom_dave, 0.5f, 17f);
 		public final float coefficient;
 		public final int name;
 		public final float maxZoom;
