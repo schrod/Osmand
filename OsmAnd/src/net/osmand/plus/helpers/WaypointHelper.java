@@ -744,7 +744,12 @@ public class WaypointHelper {
 						return iconsCache.getIcon(R.drawable.list_startpoint, 0);
 					}
 				} else if (((TargetPoint) point).intermediate) {
-					return iconsCache.getIcon(R.drawable.list_intermediate, 0);
+					String wpIcon = app.getTargetPointsHelper().findIcon((TargetPoint)point);
+					if (wpIcon != "") {
+						return FavoriteImageDrawable.getOrCreate(uiCtx, point.getColor(), wpIcon, false);
+					} else {
+						return iconsCache.getIcon(R.drawable.list_intermediate, 0);
+					}
 				} else {
 					return iconsCache.getIcon(R.drawable.list_destination, 0);
 				}

@@ -3,12 +3,14 @@ package net.osmand.plus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 
 import net.osmand.Location;
 import net.osmand.StateChangedListener;
 import net.osmand.data.LatLon;
 import net.osmand.data.LocationPoint;
 import net.osmand.data.PointDescription;
+import net.osmand.data.FavouritePoint;
 import net.osmand.plus.GeocodingLookupService.AddressLookupRequest;
 import net.osmand.plus.routing.RouteProvider.RouteService;
 import net.osmand.plus.routing.RoutingHelper;
@@ -167,6 +169,17 @@ public class TargetPointsHelper {
 		lookupAddressForHomePoint();
 		lookupAddressForWorkPoint();
 		lookupAddressForMyLocationPoint();
+	}
+
+	
+	public String findIcon(TargetPoint point) {
+		//Attempt to find this point in the favorites db and find it's icon
+		for (FavouritePoint fp : ctx.getFavorites().getFavouritePoints()) {
+			if(Math.abs(fp.getLatitude() - point.getLatitude()) < 0.00001 && Math.abs(fp.getLongitude() - point.getLongitude()) < 0.0001) {
+				return fp.getIcon("");
+			}
+		}
+		return "";					
 	}
 
 	private void readFromSettings() {

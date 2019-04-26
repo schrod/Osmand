@@ -431,7 +431,7 @@ public class MapActivityActions implements DialogProvider {
 		} else {
 			GPXRouteParamsBuilder params = new GPXRouteParamsBuilder(result, mapActivity.getMyApplication()
 					.getSettings());
-			if (result.hasRtePt() && !result.hasTrkPt()) {
+			if (result.hasRtePt() /*&& !result.hasTrkPt()*/) {
 				settings.GPX_CALCULATE_RTEPT.set(true);
 			} else {
 				settings.GPX_CALCULATE_RTEPT.set(false);
@@ -446,9 +446,25 @@ public class MapActivityActions implements DialogProvider {
 				Location startLoc = ps.get(0);
 				Location finishLoc = ps.get(ps.size() - 1);
 				TargetPointsHelper tg = mapActivity.getMyApplication().getTargetPointsHelper();
+				tg.clearPointToNavigate(false);
 				tg.navigateToPoint(new LatLon(finishLoc.getLatitude(), finishLoc.getLongitude()), false, -1);
+
+				LOG.debug("setGPXRouteParams: " + result.hasRtePt() + " " + result.hasTrkPt());
+				if (result.hasRtePt()) {
+					//TODO - select index?
+					List<WptPt> points = result.routes.get(0).points;
+				
+					for (int k = 1; k < points.size()-1; k++) {
+						WptPt intermediateWpt = points.get(k);
+						PointDescription description = new PointDescription(intermediateWpt.lat, intermediateWpt.lon);
+						description.setTypeName(PointDescription.POINT_TYPE_RTE);
+						description.setName(intermediateWpt.name);
+						LOG.debug("DAS: WptName: " + intermediateWpt.name);
+						tg.navigateToPoint(new LatLon(intermediateWpt.lat, intermediateWpt.lon), false, k-1, description);
+					}
+				}
 				if (startLoc != finishLoc) {
-					tg.setStartPoint(new LatLon(startLoc.getLatitude(), startLoc.getLongitude()), false, null);
+					tg.setStartPoint(new LatLon(startLoc.getLatitude(), startLoc.getLongitude()), false, null);					
 				} else {
 					tg.clearStartPoint(false);
 				}

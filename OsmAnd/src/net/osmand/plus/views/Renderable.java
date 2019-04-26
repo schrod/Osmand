@@ -19,6 +19,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import android.util.Log;
+
 
 public class Renderable {
 
@@ -172,9 +174,9 @@ public class Renderable {
                 double cullDistance = Math.pow(2.0, segmentSize - zoom);    // segmentSize == epsilon
                 culler = new AsynchronousResampler.RamerDouglasPeucer(this, cullDistance);
                 try {
-                    culler.executeOnExecutor(THREAD_POOL_EXECUTOR, "");
-                } catch (RejectedExecutionException e) {
-                    culler = null;
+                    culler.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "");
+                } catch (java.util.concurrent.RejectedExecutionException e) {
+                    Log.w("Renderable","Unable to start renderable task: " +e);
                 }
             }
         }

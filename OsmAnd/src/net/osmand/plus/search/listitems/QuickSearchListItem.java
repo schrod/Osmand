@@ -255,6 +255,15 @@ public class QuickSearchListItem {
 	public static Drawable getTypeIcon(OsmandApplication app, SearchResult searchResult) {
 		switch (searchResult.objectType) {
 			case FAVORITE:
+				LatLon latLon = searchResult.location;
+				for (FavouritePoint fp : app.getFavorites().getFavouritePoints()) {
+					if(Math.abs(fp.getLatitude() - latLon.getLatitude()) < 0.00001 && Math.abs(fp.getLongitude() - latLon.getLongitude()) < 0.0001) {
+						String icon = fp.getIcon("");
+						if (icon != "") {
+							return FavoriteImageDrawable.getOrCreate(app, fp.getColor(), icon, false);
+						}
+					}
+				}
 			case FAVORITE_GROUP:
 				return app.getUIUtilities().getThemedIcon(R.drawable.ic_small_group);
 			case RECENT_OBJ:

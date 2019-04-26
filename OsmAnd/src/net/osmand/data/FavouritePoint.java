@@ -132,6 +132,9 @@ public class FavouritePoint implements Serializable, LocationPoint {
 
 	@Override
 	public String getIcon(String defCustomIcon) {
+		if (icon.isEmpty()) {
+			return defCustomIcon;
+		}
 		return icon;
 	}
 
