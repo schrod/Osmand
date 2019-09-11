@@ -212,20 +212,20 @@ public class SearchCoreUITest {
 		return res;
 	}
 
-	@Test
-	public void testSearchJsons() throws IOException {
-		final File[] files = new File(SEARCH_RESOURCES_PATH).listFiles(new FilenameFilter() {
-			@Override
-			public boolean accept(File dir, String filename) {
-				return filename.endsWith(".json");
-			}
-		});
-		if (files != null) {
-			for (File f : files) {
-				testSearchImpl(f);
-			}
-		}
-	}
+	// @Test
+	// public void testSearchJsons() throws IOException {
+	// 	final File[] files = new File(SEARCH_RESOURCES_PATH).listFiles(new FilenameFilter() {
+	// 		@Override
+	// 		public boolean accept(File dir, String filename) {
+	// 			return filename.endsWith(".json");
+	// 		}
+	// 	});
+	// 	if (files != null) {
+	// 		for (File f : files) {
+	// 			testSearchImpl(f);
+	// 		}
+	// 	}
+	// }
 
 	private void testSearchImpl(File jsonFile) throws IOException, JSONException {
 		String sourceJsonText = Algorithms.getFileAsString(jsonFile);

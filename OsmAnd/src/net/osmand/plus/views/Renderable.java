@@ -174,7 +174,7 @@ public class Renderable {
                 double cullDistance = Math.pow(2.0, segmentSize - zoom);    // segmentSize == epsilon
                 culler = new AsynchronousResampler.RamerDouglasPeucer(this, cullDistance);
                 try {
-                    culler.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "");
+                    culler.executeOnExecutor(THREAD_POOL_EXECUTOR, "");
                 } catch (java.util.concurrent.RejectedExecutionException e) {
                     Log.w("Renderable","Unable to start renderable task: " +e);
                 }
